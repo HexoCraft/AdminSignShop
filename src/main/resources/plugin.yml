@@ -1,0 +1,10 @@
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+main: com.github.hexosse.AdminSignShop
+
+author: hexosse
+website: www.github.hexosse
+
+depend: [MaterialLib]
+softdepend: []
