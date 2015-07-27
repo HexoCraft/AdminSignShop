@@ -364,6 +364,7 @@ public class Shops
 
         String materialName = book.getType().name().replace("_", "").toLowerCase();
 
+        /* todo : Voir pour ajouter les enchantements à MemWorth */
         double enchantmentWorth = (double) worth.getDouble("worth." + materialName + "." + ench.getId());
 
         return enchantmentWorth;
