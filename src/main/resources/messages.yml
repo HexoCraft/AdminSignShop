@@ -16,3 +16,4 @@ messages:
   disable: AdminSignShop is disable
   not_enabled: AdminSignShop must be enable
   reloaded: AdminSignShop has been reloaded
+  worth_syntax: Use AdminSignShop worth <number>

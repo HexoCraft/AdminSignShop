@@ -47,6 +47,7 @@ public class Messages
 	public String disable;
 	public String not_enabled;
 	public String reloaded;
+	public String worth_syntax;
 
 
 	/**
@@ -76,6 +77,7 @@ public class Messages
 		disable = essConfig.getString("messages.disable", "AdminSignShop is disable");
 		not_enabled = essConfig.getString("messages.not_enabled", "AdminSignShop must be enable");
 		reloaded = essConfig.getString("messages.reloaded", "AdminSignShop has been reloaded");
+		worth_syntax = essConfig.getString("messages.worth_syntax", "Use AdminSignShop worth <number>");
 	}
 
 	/**

@@ -18,7 +18,9 @@ package com.github.hexosse.adminsignshop.shop;
 
 import com.github.hexosse.adminsignshop.Utils.StringUtil;
 import com.github.hexosse.adminsignshop.configuration.Config;
+import com.google.common.collect.Iterables;
 import com.meowj.langutils.lang.LanguageHelper;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -26,10 +28,11 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
 import org.bukkit.plugin.Plugin;
@@ -49,7 +52,7 @@ import org.wargamer2010.signshop.util.signshopUtil;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -90,7 +93,10 @@ public class Shops
         // 0 - Préparation du sign
         // --> Opération, désignatio, prix, ...
         if(!PrepareSign(sign,player))
+        {
             ssPlayer.sendMessage(SignShopConfig.getError("invalid_operation", null));
+            return;
+        }
 
 
         // 1 - retrouver les informations et opérations permettant la création du shop
@@ -161,7 +167,7 @@ public class Shops
         ItemStack item = player.getItemInHand();
         if(item==null) return false;
 
-        // Créateur du shop
+       // Créateur du shop
         Creator creator = creators.get(player);
         if(creator == null) return false;
 
@@ -169,10 +175,16 @@ public class Shops
         int quantity = player.getItemInHand().getAmount();
 
         // Item à vendre
-        String itemName = GetItemName(item);
+        String bookName = getBookName(item);
+        String itemName = getItemName(item);
+        String enchanted_item = getItemName(new ItemStack(item.getType()));
+        String enchanted_name = getEnchantName(item.getEnchantments());
+        if(item.getEnchantments().size()>0)
+            itemName = "";
+        else enchanted_item = "";
 
         // Prix unitaire de l'item
-        double purchasePrice = getWorth(item);
+        double purchasePrice = getWorth(item, creator);
         double sellPrice = creator.sellFactor * purchasePrice;
 
         // Prix total de l'item
@@ -204,8 +216,8 @@ public class Shops
             line[3] = "$" + (creator.buy ? totalPurchasePrice : totalSellPrice);
 
             // Mise à jour des lignes
-            line[1] = line[1].replaceAll("%quantity%", "" + quantity).replaceAll("%name%", itemName);
-            line[2] = line[2].replaceAll("%quantity%", "" + quantity).replaceAll("%name%", itemName);
+            line[1] = line[1].replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name);
+            line[2] = line[2].replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name);
 
             sign.setLine(0, line[0]);
             sign.setLine(1, line[1]);
@@ -217,32 +229,143 @@ public class Shops
         return true;
     }
 
-    protected String GetItemName(ItemStack item)
+    protected String getBookName(ItemStack item)
     {
-        if(langUtils!=null)
-            return LanguageHelper.getItemName(item, config.locale);
-        else
-            return StringUtil.capitalizeFirstLetter(item.getType().name().replace("_", " "));
+        if(item.getType()==Material.BOOK || item.getType()==Material.ENCHANTED_BOOK)
+        {
+            ItemStack book = new ItemStack(Material.BOOK);
+            if(langUtils != null)
+                return LanguageHelper.getItemName(book, config.locale);
+            else
+                return StringUtil.capitalizeFirstLetter(book.getType().name().replace("_", " "));
+        }
+        return "";
     }
 
-    /**
-     * @param is
-     * @return
-     */
-    protected float getWorth(ItemStack is)
+    protected String getItemName(ItemStack item)
     {
-        float price = 0;
+        // Cas des livres enchantés
+        if(item.getType()==Material.ENCHANTED_BOOK)
+        {
+            // Echantments
+            EnchantmentStorageMeta book = (EnchantmentStorageMeta) item.getItemMeta();
+            // List of enchantments
+            Map<Enchantment, Integer> enchantments = book.getStoredEnchants();
 
-        String materialName = is.getType().name().replace("_", "").toLowerCase();
+            return  getEnchantName(enchantments);
+        }
+        else
+        {
+            if(langUtils != null)
+                return LanguageHelper.getItemName(item, config.locale);
+            else
+                return StringUtil.capitalizeFirstLetter(item.getType().name().replace("_", " "));
+        }
+    }
+
+    protected String getEnchantName(Map<Enchantment, Integer> enchantments)
+    {
+        // Un seul enchantement
+        if(enchantments.size() == 1)
+        {
+            Enchantment enchantment = Iterables.getFirst(enchantments.keySet(), null);
+            int level = Iterables.getFirst(enchantments.values(), 0);
+            if(langUtils != null)
+                return LanguageHelper.getEnchantmentName(enchantment, level, config.locale);
+            else
+            {
+                String ench = StringUtil.capitalizeFirstLetter(enchantment.getName().replace("_", " "));
+                String enchLevel = Integer.toString(level);
+                return ench + (enchLevel.length() > 0 ? " " + enchLevel : "");
+            }
+        }
+        // Plusieurs enchantements
+        else
+        {
+            String name = "";
+            for(Map.Entry<Enchantment, Integer> enchantmentLevel : enchantments.entrySet())
+            {
+                String tempName = (langUtils != null)
+                        ? LanguageHelper.getEnchantmentName(enchantmentLevel.getKey(), config.locale)
+                        : (enchantmentLevel.getKey().getName());
+                String tempLevel = (langUtils != null)
+                        ? LanguageHelper.getEnchantmentLevelName(enchantmentLevel.getValue(), config.locale)
+                        : (enchantmentLevel.getValue() > 0 ? " " + enchantmentLevel.getValue() : "");
+
+                name += WordUtils.initials(tempName) + tempLevel + " ";
+            }
+
+            return name.trim();
+        }
+    }
+
+    protected double getWorth(ItemStack is, Creator creator)
+    {
+        if(creator.defWorth != 0 )
+            return creator.defWorth;
 
         YamlConfiguration worth = config.getWorth();
+        double worthItem = 0;
+        String materialName = is.getType().name().replace("_", "").toLowerCase();
 
-        price = (float) worth.getDouble("worth." + materialName + "." + is.getDurability());
-        if (price == 0) {
-            price = (float) worth.getDouble("worth." + materialName);
+        if(is.getType()==Material.ENCHANTED_BOOK)
+        {
+            // Echantments
+            EnchantmentStorageMeta book = (EnchantmentStorageMeta) is.getItemMeta();
+            // List of enchantments
+            Map<Enchantment, Integer> enchantments = book.getStoredEnchants();
+
+            for(Map.Entry<Enchantment, Integer> enchantmentLevel : enchantments.entrySet())
+            {
+                Enchantment enchantment = enchantmentLevel.getKey();
+                int level = enchantmentLevel.getValue();
+
+                double worthEnch = getWorth(enchantment,creator);
+                worthEnch = worthEnch + (level-1)*(1+creator.enchantmentFactor)*worthEnch;
+                worthItem += worthEnch;
+            }
+
+            return worthItem;
         }
 
-        return price;
+        worthItem = (double) worth.getDouble("worth." + materialName + "." + is.getDurability());
+        if (worthItem == 0) {
+            worthItem = (double) worth.getDouble("worth." + materialName);
+        }
+
+        if(is.getEnchantments().size()>0)
+        {
+            for(Map.Entry<Enchantment, Integer> enchantmentLevel : is.getEnchantments().entrySet())
+            {
+                Enchantment enchantment = enchantmentLevel.getKey();
+                int level = enchantmentLevel.getValue();
+
+                double worthEnch = getWorth(enchantment,creator);
+                worthEnch = worthEnch + (level-1)*(1+creator.enchantmentFactor)*worthEnch;
+                worthItem += worthEnch;
+            }
+        }
+
+        return worthItem;
+    }
+
+    protected double getWorth(Enchantment ench, Creator creator)
+    {
+        if(creator.defWorth != 0 )
+            return creator.defWorth;
+
+        YamlConfiguration worth = config.getWorth();
+        double worthItem = 0;
+
+
+        ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
+        book.addUnsafeEnchantment(ench,1);
+
+        String materialName = book.getType().name().replace("_", "").toLowerCase();
+
+        double enchantmentWorth = (double) worth.getDouble("worth." + materialName + "." + ench.getId());
+
+        return enchantmentWorth;
     }
 
 }

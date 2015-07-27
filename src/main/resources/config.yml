@@ -18,6 +18,8 @@ shop:
   worthFile: Essentials/worth.yml
   # Factor applied to the worth to get the sell price
   sellFactor: 0.75
+  # Factor applied to each level of enchantment
+  enchantmentFactor: 0.12
   # Buy shop enable
   buy: true
   # Sell shop enable
@@ -29,8 +31,11 @@ shop:
     sell: iSell
     # line1 and line2 can use one of this property :
     # %quantity% : Quantity,  %name% : unlocalized name
-    line1: "%quantity% of"
-    line2: "%name%"
+    # %book% : book name (used for enchanted book)
+    # %enchanted_item% : name of the item which is enchanted
+    # %enchanted_name% : name of the enchantment applied to the item which is enchanted
+    line1: "%quantity% %book% %enchanted_item%"
+    line2: "%name% %enchanted_name%"
 
 
 # *-------------- GroundItem configuration -----------------*

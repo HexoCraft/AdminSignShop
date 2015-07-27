@@ -24,6 +24,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 
 /**
@@ -45,12 +46,14 @@ public class Config
     /* Shop */
     public String worthFile = "Essentials/worth.yml";
     public double sellFactor = (double) 0.75;
+    public double enchantmentFactor = (double) 0.12;
     public boolean buy = (boolean) true;
     public boolean sell = (boolean) false;
+    public double defWorth = (double) 0;
     public String buySign = "iBuy";
     public String sellSign = "iSell";
-    public String line1 = "\"%quantity% of\"";
-    public String line2 = "\"%name%\"";
+    public String line1 = "\"%quantity% %book% %enchanted_item%\"";
+    public String line2 = "\"%name% %enchanted_name%\"";
 
     /* Ground Item */
     public boolean groundItem = (boolean) true;
@@ -88,9 +91,10 @@ public class Config
         useUpdater = config.getBoolean("plugin.useUpdater", true);
 
         worthFile = config.getString("shop.worthFile", "Essentials/worth.yml");
-        sellFactor = config.getDouble("shop.sellFactor", 1.7);
+        sellFactor = config.getDouble("shop.sellFactor", 0.75);
         buy = config.getBoolean("shop.buy", true);
         sell = config.getBoolean("shop.sell", false);
+        defWorth = (double) 0;
         buySign = config.getString("shop.signs.buy", "iBuy");
         sellSign = config.getString("shop.signs.sell","iSell");
         line1 = config.getString("shop.signs.line1","%quantity% of");
@@ -102,7 +106,7 @@ public class Config
 
         message = config.getString("message", "messages.yml");
 
-        locale = config.getString("locale", "en_US");
+        locale = config.getString("locale", Locale.getDefault().toString());
     }
 
 

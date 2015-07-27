@@ -66,6 +66,9 @@ public class Commands implements CommandExecutor
 			else if(args[0].equalsIgnoreCase("sell"))
 				CommandSell.execute(sender,args);
 
+			else if(args[0].equalsIgnoreCase("worth"))
+				CommandWorth.execute(sender,args);
+
 			else if(args[0].equalsIgnoreCase("groundItem"))
 				CommandGroundItem.execute(sender,args);
 

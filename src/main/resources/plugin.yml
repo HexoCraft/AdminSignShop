@@ -19,6 +19,7 @@ commands:
            /AdminSignShop [disable|off] : Disable AdminSignShop creation
            /AdminSignShop buy : Enable user to create a [iBuy] shop
            /AdminSignShop sell : Enable user to create a [iSell] shop
+           /AdminSignShop worth <worth>: Force the worth. Set to 0 to disable
            /AdminSignShop groundItem [enable|on] : Enable use ground item display
            /AdminSignShop groundItem [disable|off] : Disable use ground item display
            /AdminSignShop groundItem holographicDisplays : use holographicDisplay for ground item display

@@ -36,9 +36,11 @@ public class Creator
 	
 	/* Shop */
 	public double sellFactor = config.sellFactor;
+	public double enchantmentFactor = config.enchantmentFactor;
 	public boolean buy = config.buy;
 	public boolean sell = config.sell;
-	
+	public double defWorth = config.defWorth;
+
 	/* 3D */
 	public boolean groundItem = config.groundItem;
 	public boolean holographicDisplays = config.holographicDisplays;
