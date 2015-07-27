@@ -79,8 +79,8 @@ public class Shops
     }
 
     /**
-     * @param signBlock
-     * @param player
+     * @param signBlock Sign block used for the shop
+     * @param player Player creating the shop
      */
  	public void CreateSignShop(Block signBlock, Player player)
 	{
@@ -160,6 +160,7 @@ public class Shops
      *
      * @param sign to prepare
      * @param player Player creating the shop
+     * @return Indicate if the shop can be created
      */
     protected boolean PrepareSign(Sign sign, Player player)
     {

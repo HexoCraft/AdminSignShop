@@ -51,7 +51,7 @@ public class Messages
 
 
 	/**
-	 * @param dataFolder
+	 * @param dataFolder Plugin data folder
 	 */
 	public Messages(File dataFolder)
 	{
@@ -81,8 +81,8 @@ public class Messages
 	}
 
 	/**
-	 * @param message
-	 * @return
+	 * @param message Message to format
+	 * @return Fomated message
 	 */
     public String prefix(String message) {
         return ChatColor.translateAlternateColorCodes('&', prefix + message);

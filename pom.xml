@@ -6,7 +6,7 @@
 
     <groupId>com.github.hexosse</groupId>
     <artifactId>AdminSignShop</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>AdminSignShop</name>
     <description>Quickly create SignShop for Admin</description>
@@ -64,7 +64,7 @@
         </repository>
         <!-- hexosse repository -->
         <repository>
-            <id>kexosse-repo</id>
+            <id>hexosse-repo</id>
             <url>https://raw.github.com/hexosse/maven-repo/master/</url>
             <snapshots>
                 <enabled>true</enabled>
@@ -131,7 +131,7 @@
         <dependency>
             <groupId>com.meowj</groupId>
             <artifactId>LangUtils</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.1</version>
         </dependency>
     </dependencies>
 

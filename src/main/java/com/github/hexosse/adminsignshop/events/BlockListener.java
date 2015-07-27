@@ -28,8 +28,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 /**
  * This file is part AdminSignShop
  *
- * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- * @date 14/07/2015
+ * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>)
  */
 public class BlockListener implements Listener
 {

@@ -68,7 +68,7 @@ public class Config
 
 
     /**
-     * @param dataFolder
+     * @param dataFolder Plugin data folder
      */
     public Config(File dataFolder)
     {
@@ -80,9 +80,6 @@ public class Config
         reloadConfig();
     }
 
-    /**
-     *
-     */
     public void reloadConfig()
     {
         config.load();
@@ -113,7 +110,7 @@ public class Config
     /**
      * Test la validité du fichier worth.yml
      *
-     * @throws InvalidConfigurationException
+     * @throws InvalidConfigurationException Exception
      */
     public void CheckWorthFile() throws InvalidConfigurationException
     {
@@ -148,7 +145,7 @@ public class Config
     }
 
     /**
-     * @return
+     * @return Worth
      */
     public YamlConfiguration getWorth() {
         return worth;
