@@ -1,0 +1,53 @@
+############################################################
+# |                                                      | #
+# |                   AdminSignShop                      | #
+# |                                                      | #
+# |                                   by hexosse         | #
+# |                                                      | #
+############################################################
+
+
+# *---------------- Plugin configuration --------------------*
+plugin:
+  useMetrics : true
+  useUpdater : true
+
+# *---------------- Shop configuration --------------------*
+shop:
+  # Path to file containing the worth of each items that
+  worthFile: Essentials/worth.yml
+  # Factor applied to the worth to get the sell price
+  sellFactor: 0.75
+  # Factor applied to each level of enchantment
+  enchantmentFactor: 0.12
+  # Buy shop enable
+  buy: true
+  # Sell shop enable
+  sell: false
+  # Here are the signs that will be used to create the shop.
+  # Those signs MUST exist in SignShop
+  signs:
+    buy: iBuy
+    sell: iSell
+    # line1 and line2 can use one of this property :
+    # %quantity% : Quantity,  %name% : unlocalized name
+    # %book% : book name (used for enchanted book)
+    # %enchanted_item% : name of the item which is enchanted
+    # %enchanted_name% : name of the enchantment applied to the item which is enchanted
+    line1: "%quantity% %book% %enchanted_item%"
+    line2: "%name% %enchanted_name%"
+
+
+# *-------------- GroundItem configuration -----------------*
+groundItem:
+  # Ground item si enable
+  groundItem: true
+  # ground item are displayed using HolographicDisplays
+  holographicDisplays: true
+  # ground item are displayed using itemStay
+  itemStay: false
+
+
+# *-------------- Messages configuration -----------------*
+messages: message.yml
+locale : en_US

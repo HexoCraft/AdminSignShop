@@ -1,0 +1,19 @@
+#----------- Chat Options ------------------
+chat:
+  # Prefix used in the chat
+  prefix: '&a[AdminSignShop] &r'
+
+
+#----------- Error messages ------------------
+errors:
+  # Prefix used in the chat
+  AccesDenied: You don't have permission to do that!
+
+
+#----------- Messages ------------------
+messages:
+  enable: AdminSignShop is enable
+  disable: AdminSignShop is disable
+  not_enabled: AdminSignShop must be enable
+  reloaded: AdminSignShop has been reloaded
+  worth_syntax: Use AdminSignShop worth <number>
