@@ -50,10 +50,12 @@ public class Config
     public boolean buy = (boolean) true;
     public boolean sell = (boolean) false;
     public double defWorth = (double) 0;
+    public String currencySymbol = "$";
     public String buySign = "iBuy";
     public String sellSign = "iSell";
-    public String line1 = "\"%quantity% %book% %enchanted_item%\"";
-    public String line2 = "\"%name% %enchanted_name%\"";
+    public String line1 = "";
+    public String line2 = "";
+    public String line12 = "\"%quantity% %book% %enchanted_item% %name% %enchanted_name%\"";
 
     /* Ground Item */
     public boolean groundItem = (boolean) true;
@@ -92,10 +94,12 @@ public class Config
         buy = config.getBoolean("shop.buy", true);
         sell = config.getBoolean("shop.sell", false);
         defWorth = (double) 0;
+        currencySymbol = config.getString("shop.signs.currency-symbol", "$");
         buySign = config.getString("shop.signs.buy", "iBuy");
         sellSign = config.getString("shop.signs.sell","iSell");
-        line1 = config.getString("shop.signs.line1","%quantity% of");
-        line2 = config.getString("shop.signs.line2","%name%");
+        line1 = config.getString("shop.signs.line1","");
+        line2 = config.getString("shop.signs.line2","");
+        line12 = config.getString("shop.signs.line12","%quantity% %book% %enchanted_item% %name% %enchanted_name%");
 
         groundItem = config.getBoolean("groundItem.groundItem", true);
         holographicDisplays = config.getBoolean("groundItem.holographicDisplays", true);

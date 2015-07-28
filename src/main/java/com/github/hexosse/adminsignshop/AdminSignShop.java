@@ -24,13 +24,19 @@ import com.github.hexosse.adminsignshop.events.PlayerListener;
 import com.github.hexosse.adminsignshop.metrics.MetricsLite;
 import com.github.hexosse.adminsignshop.shop.Shops;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -164,5 +170,43 @@ public class AdminSignShop extends JavaPlugin
 	public static Messages getMessages()
 	{
 		return messages;
+	}
+
+
+	public void log(String msg) {
+		this.log(Level.INFO, msg, null);
+	}
+
+	public void log(String msg, CommandSender sender) {
+		if(sender instanceof Player)
+			this.log(Level.INFO, msg, (Player)sender);
+		else
+			this.log(Level.INFO, msg, null);
+	}
+
+	public void log(String msg, Player player) {
+		this.log(Level.INFO, msg, player);
+	}
+
+	public void log(Level level, String msg, Player player)
+	{
+		String logPrefixColored = messages.prefix;
+		String logPrefixPlain = ChatColor.stripColor(logPrefixColored);
+
+		if(player != null)
+		{
+			player.sendMessage(logPrefixColored + msg);
+		}
+		else
+		{
+			ConsoleCommandSender sender = Bukkit.getConsoleSender();
+			if (level == Level.INFO && sender != null)
+			{
+				Bukkit.getConsoleSender().sendMessage(logPrefixColored + msg);
+			} else
+			{
+				Logger.getLogger("Minecraft").log(level, logPrefixPlain + msg);
+			}
+		}
 	}
 }

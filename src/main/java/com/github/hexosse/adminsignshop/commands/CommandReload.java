@@ -18,6 +18,7 @@ package com.github.hexosse.adminsignshop.commands;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
 import com.github.hexosse.adminsignshop.Utils.LocationUtil;
+import com.github.hexosse.adminsignshop.configuration.Config;
 import com.github.hexosse.adminsignshop.configuration.Messages;
 import com.github.hexosse.adminsignshop.configuration.Permissions;
 import com.github.hexosse.adminsignshop.grounditem.GroundItem;
@@ -37,6 +38,7 @@ import org.wargamer2010.signshop.SignShop;
 public class CommandReload
 {
     private final static AdminSignShop plugin = AdminSignShop.getPlugin();
+    private final static Config config = AdminSignShop.getConfiguration();
     private final static Messages messages = AdminSignShop.getMessages();
 
     private static Plugin signShop = plugin.getServer().getPluginManager().getPlugin("SignShop");
@@ -55,7 +57,7 @@ public class CommandReload
             return;
         }
 
-        final Player player = (Player) sender;
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
 
         new BukkitRunnable()
         {
@@ -66,6 +68,8 @@ public class CommandReload
                  * Si il faut faire quelque chose lors d'un reload alors mettre le code ici
                  * car le fait de faire un reload de SignShop appel les méthodes onDisable et onEnable de AdminSignShop
                  * */
+                config.reloadConfig();
+                messages.reloadConfig();
 
                 if(signShop!=null)
                     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "SignShop reload");
@@ -83,6 +87,8 @@ public class CommandReload
 
                 /*Bukkit.getPluginManager().disablePlugin(plugin);
                 Bukkit.getPluginManager().enablePlugin(plugin);*/
+
+                plugin.log(messages.reloaded);
 
                 player.sendMessage(messages.prefix(messages.reloaded));
             }
