@@ -48,7 +48,7 @@ public class Commands implements CommandExecutor
 
 		if(cmd.getName().equalsIgnoreCase("ass"))
 		{
-			if(args[0].equalsIgnoreCase("reload"))
+			if(args.length == 1 && args[0].equalsIgnoreCase("reload"))
 				CommandReload.execute(sender,args);
 
 			if (!(sender instanceof Player))
@@ -72,7 +72,7 @@ public class Commands implements CommandExecutor
 			else if(args[0].equalsIgnoreCase("worth"))
 				CommandWorth.execute(sender,args);
 
-			else if(args[0].equalsIgnoreCase("groundItem"))
+			else if(args[0].equalsIgnoreCase("groundItem") || args[0].equalsIgnoreCase("gi"))
 				CommandGroundItem.execute(sender,args);
 		}
 

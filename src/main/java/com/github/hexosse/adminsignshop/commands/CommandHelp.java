@@ -63,10 +63,8 @@ public class CommandHelp
             sender.sendMessage(ChatColor.GOLD + "buy : " + ChatColor.AQUA + (creator.buy?"enable":"disable"));
             sender.sendMessage(ChatColor.GOLD + "sell : " + ChatColor.AQUA + (creator.sell?"enable":"disable"));
             sender.sendMessage(ChatColor.GOLD + "groundItem : " + ChatColor.AQUA + (creator.groundItem?"enable":"disable"));
-            if(creator.holographicDisplays)
-                sender.sendMessage(ChatColor.GOLD + "holographicDisplays : " + ChatColor.AQUA + "active");
-            if(creator.itemStay)
-                sender.sendMessage(ChatColor.GOLD + "itemStay : " + ChatColor.AQUA + "active");
+            sender.sendMessage(ChatColor.GOLD + "holographicDisplays : " + ChatColor.AQUA + (creator.holographicDisplays ? "active" : "inactive"));
+            sender.sendMessage(ChatColor.GOLD + "itemStay : " + ChatColor.AQUA + (creator.itemStay ? "active" : "inactive"));
         }
         else
         {
@@ -74,10 +72,8 @@ public class CommandHelp
             sender.sendMessage(ChatColor.GOLD + "buy : " + ChatColor.AQUA + (config.buy?"enable":"disable"));
             sender.sendMessage(ChatColor.GOLD + "sell : " + ChatColor.AQUA + (config.sell?"enable":"disable"));
             sender.sendMessage(ChatColor.GOLD + "groundItem : " + ChatColor.AQUA + (config.groundItem?"enable":"disable"));
-            if(config.holographicDisplays)
-                sender.sendMessage(ChatColor.GOLD + "holographicDisplays : " + ChatColor.AQUA + "active");
-            if(config.itemStay)
-                sender.sendMessage(ChatColor.GOLD + "itemStay : " + ChatColor.AQUA + "active");
+            sender.sendMessage(ChatColor.GOLD + "holographicDisplays : " + ChatColor.AQUA + (config.holographicDisplays ? "active" : "inactive"));
+            sender.sendMessage(ChatColor.GOLD + "itemStay : " + ChatColor.AQUA + (config.itemStay ? "active" : "inactive"));
         }
         sender.sendMessage("-----------------------------------------------------");
     }
