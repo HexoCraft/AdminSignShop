@@ -48,6 +48,9 @@ public class Commands implements CommandExecutor
 
 		if(cmd.getName().equalsIgnoreCase("ass"))
 		{
+			if(args[0].equalsIgnoreCase("reload"))
+				CommandReload.execute(sender,args);
+
 			if (!(sender instanceof Player))
 		        sender.sendMessage(ChatColor.GRAY + AdminSignShop.getPluginName() + "'s version is: " + ChatColor.GREEN + AdminSignShop.getVersion());
 
@@ -71,9 +74,6 @@ public class Commands implements CommandExecutor
 
 			else if(args[0].equalsIgnoreCase("groundItem"))
 				CommandGroundItem.execute(sender,args);
-
-			else if(args[0].equalsIgnoreCase("reload"))
-				CommandReload.execute(sender,args);
 		}
 
         return true;
