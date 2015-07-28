@@ -209,12 +209,23 @@ public class Shops
         }
         else
         {
+            // Formatage des lignes
+            String line1 = config.line1.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
+            String line2 = config.line2.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
+            String line12 = config.line12.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
+            if(!line12.isEmpty())
+            {
+                String[] splitsLine = StringUtil.breakLinesSplit(line12, 16);
+                line1 = (splitsLine.length > 0) ? splitsLine[0] : "";
+                line2 = (splitsLine.length > 1) ? splitsLine[1] : "";
+            }
+
             // Création des lignes
             String[] line = new String[4];
             line[0] = shopType;
-            line[1] = config.line1;
-            line[2] = config.line2;
-            line[3] = "$" + (creator.buy ? totalPurchasePrice : totalSellPrice);
+            line[1] = line1;
+            line[2] = line2;
+            line[3] = config.currencySymbol + " " + (creator.buy ? totalPurchasePrice : totalSellPrice);
 
             // Mise à jour des lignes
             line[1] = line[1].replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name);

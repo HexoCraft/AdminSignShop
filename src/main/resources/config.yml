@@ -27,15 +27,25 @@ shop:
   # Here are the signs that will be used to create the shop.
   # Those signs MUST exist in SignShop
   signs:
+    # Currency symbol you want to use.
+    # Might be the same as in essential if using EssentialsEco
+    currency-symbol: '$'
+    # You can specified the symbol you want to use when creating
+    # a buy shop. Look at SignShop configuration.
+    # Can be useful when used in another language.
     buy: iBuy
+    # You can specified the symbol you want to use when creating
+    # a sell shop. Look at SignShop configuration.
+    # Can be useful when used in another language.
     sell: iSell
     # line1 and line2 can use one of this property :
     # %quantity% : Quantity,  %name% : unlocalized name
     # %book% : book name (used for enchanted book)
     # %enchanted_item% : name of the item which is enchanted
     # %enchanted_name% : name of the enchantment applied to the item which is enchanted
-    line1: "%quantity% %book% %enchanted_item%"
-    line2: "%name% %enchanted_name%"
+    # line1: "%quantity% %book% %enchanted_item%"
+    # line2: "%name% %enchanted_name%"
+    line12: "%quantity% %book% %enchanted_item% %name% %enchanted_name%"
 
 
 # *-------------- GroundItem configuration -----------------*
@@ -49,5 +59,8 @@ groundItem:
 
 
 # *-------------- Messages configuration -----------------*
+# You can use the default messages provided or translate as you whish.
 messages: message.yml
+# Define your localization when using Language Utils plugin.
+# Every items will be translated in your Language.
 locale: en_US
