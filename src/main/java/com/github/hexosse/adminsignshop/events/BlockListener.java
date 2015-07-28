@@ -17,6 +17,7 @@
 package com.github.hexosse.adminsignshop.events;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
+import com.github.hexosse.adminsignshop.shop.Creator;
 import com.github.hexosse.adminsignshop.shop.ShopCreators;
 import com.github.hexosse.adminsignshop.shop.Shops;
 import org.bukkit.Material;
@@ -39,7 +40,8 @@ public class BlockListener implements Listener
     @EventHandler(priority= EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event)
     {
-        if(creators.exist(event.getPlayer()))
+        Creator creator = shops.creators.get(event.getPlayer());
+        if(creator!=null && creator.enable)
             event.setCancelled(true);
     }
 }

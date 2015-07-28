@@ -48,8 +48,8 @@ public class CommandHelp
         sender.sendMessage(ChatColor.AQUA + "/ass help :" + ChatColor.WHITE + "AdminSignShop help");
         sender.sendMessage(ChatColor.AQUA + "/ass [enable|on] :" + ChatColor.WHITE + " Enable AdminShop creation");
         sender.sendMessage(ChatColor.AQUA + "/ass [disable|off] :" + ChatColor.WHITE + " Disable AdminSignShop creation");
-        sender.sendMessage(ChatColor.AQUA + "/ass buy :" + ChatColor.WHITE + " Enable user to create a [Buy] shop");
-        sender.sendMessage(ChatColor.AQUA + "/ass sell :" + ChatColor.WHITE + " Enable user to create a [Sell] shop");
+        sender.sendMessage(ChatColor.AQUA + "/ass buy :" + ChatColor.WHITE + " Enable user to create a [iBuy] shop");
+        sender.sendMessage(ChatColor.AQUA + "/ass sell :" + ChatColor.WHITE + " Enable user to create a [iSell] shop");
         sender.sendMessage(ChatColor.AQUA + "/ass groundItem [enable|on] :" + ChatColor.WHITE + " Enable use ground item display");
         sender.sendMessage(ChatColor.AQUA + "/ass groundItem [disable|off] :" + ChatColor.WHITE + " Disable use ground item display");
         sender.sendMessage(ChatColor.AQUA + "/ass groundItem holographicDisplays :" + ChatColor.WHITE + " use holographicDisplay for ground item display");
@@ -59,7 +59,7 @@ public class CommandHelp
 
         if(creator!=null)
         {
-            sender.sendMessage(ChatColor.GOLD + "plugin : " + ChatColor.AQUA + "on");
+            sender.sendMessage(ChatColor.GOLD + "plugin : " + ChatColor.AQUA + (creator.enable?"on":"off"));
             sender.sendMessage(ChatColor.GOLD + "buy : " + ChatColor.AQUA + (creator.buy?"enable":"disable"));
             sender.sendMessage(ChatColor.GOLD + "sell : " + ChatColor.AQUA + (creator.sell?"enable":"disable"));
             sender.sendMessage(ChatColor.GOLD + "groundItem : " + ChatColor.AQUA + (creator.groundItem?"enable":"disable"));

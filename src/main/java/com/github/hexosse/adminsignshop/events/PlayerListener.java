@@ -59,13 +59,11 @@ public class PlayerListener implements Listener
 	{
 		final PlayerInteractEvent event = e;
 		final Player player = event.getPlayer();
+		final Creator creator = shops.creators.get(player);
 		
 		// Test si le joueur est en cours de création de shop
-		if(creators.exist(player)==false) return;
+		if(creator==null || (creator!=null && creator.enable==false)) return;
 		
-		// Retrouve les paramêtress de création du shop
-		final Creator creator = creators.get(player);
-
 		//
 		if(event.getAction().equals(Action.LEFT_CLICK_BLOCK))
 		{
@@ -104,8 +102,6 @@ public class PlayerListener implements Listener
 				}
 			}
 		}
-
-		if(creators.exist(player)==false) return;
     }
 	
 

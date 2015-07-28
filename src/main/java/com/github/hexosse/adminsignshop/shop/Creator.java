@@ -33,6 +33,9 @@ public class Creator
 
 	/* Player */
 	private Player player = null;
+
+	/* Enable */
+	public boolean enable;
 	
 	/* Shop */
 	public double sellFactor = config.sellFactor;
@@ -52,11 +55,8 @@ public class Creator
     public Creator(Player creator)
     {
     	player = creator;
+		enable = true;
     }
 
-
-
-	public Player getPlayer() {
-		return player;
-	}
+	public Player getPlayer() { return player; }
 }

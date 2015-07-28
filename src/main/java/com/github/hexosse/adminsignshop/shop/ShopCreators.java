@@ -101,4 +101,15 @@ public class ShopCreators
 		}
 		return creator;
     }
+
+
+	//
+	public void enable(Player player, boolean enable)
+	{
+		Creator creator = get(player);
+
+		if(creator!=null)
+			creator.enable = enable;
+	}
+
 }

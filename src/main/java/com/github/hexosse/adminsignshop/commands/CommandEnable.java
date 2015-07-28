@@ -19,6 +19,7 @@ package com.github.hexosse.adminsignshop.commands;
 import com.github.hexosse.adminsignshop.AdminSignShop;
 import com.github.hexosse.adminsignshop.configuration.Messages;
 import com.github.hexosse.adminsignshop.configuration.Permissions;
+import com.github.hexosse.adminsignshop.shop.Creator;
 import com.github.hexosse.adminsignshop.shop.Shops;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -46,9 +47,12 @@ public class CommandEnable
         }
 
         Player player = (Player) sender;
+        Creator creator = shops.creators.get(player);
 
-        if(!shops.creators.exist(player))
+        if(creator==null)
             shops.creators.add(player);
+        else
+            creator.enable = true;
 
         if(shops.creators.exist(player))
             sender.sendMessage(messages.prefix(messages.enable));

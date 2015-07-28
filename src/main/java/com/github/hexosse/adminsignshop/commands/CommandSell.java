@@ -49,7 +49,7 @@ public class CommandSell
         Player player = (Player) sender;
         Creator creator = shops.creators.get(player);
 
-        if(creator!=null)
+        if(creator!=null && creator.enable)
         {
             creator.buy = false;
             creator.sell = true;
