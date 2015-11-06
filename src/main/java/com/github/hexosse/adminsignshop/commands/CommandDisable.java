@@ -17,10 +17,8 @@
 package com.github.hexosse.adminsignshop.commands;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.configuration.Messages;
-import com.github.hexosse.adminsignshop.configuration.Permissions;
 import com.github.hexosse.adminsignshop.shop.Creator;
-import com.github.hexosse.adminsignshop.shop.Shops;
+import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -29,31 +27,28 @@ import org.bukkit.entity.Player;
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandDisable
+public class CommandDisable extends BaseArgsCommand<AdminSignShop>
 {
-    private final static AdminSignShop plugin = AdminSignShop.getPlugin();
-    private final static Messages messages = AdminSignShop.getMessages();
-    private final static Shops shops = AdminSignShop.getShops();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandDisable(AdminSignShop plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender sender
      * @param args args
      */
-    public static void execute(CommandSender sender, String[] args)
+    public void execute(CommandSender sender, String[] args)
     {
-        if (!Permissions.has(sender, Permissions.ADMIN))
-        {
-            sender.sendMessage(messages.prefix(messages.AccesDenied));
-            return;
-        }
-
-        Player player = (Player) sender;
-        Creator creator = shops.creators.get(player);
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+        Creator creator = plugin.shops.creators.get(player);
 
         if(creator!=null)
             creator.enable = false;
 
-        if(!shops.creators.exist(player))
-            sender.sendMessage(messages.prefix(messages.disable));
+        if(!plugin.shops.creators.exist(player))
+            pluginLogger.help(plugin.messages.prefix() + plugin.messages.disable, player);
     }
 }

@@ -1,3 +1,5 @@
+package com.github.hexosse.adminsignshop.configuration;
+
 /*
  * Copyright 2015 Hexosse
  *
@@ -14,10 +16,8 @@
  * limitations under the License.
  */
 
-package com.github.hexosse.adminsignshop.configuration;
-
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.Utils.Essentials.EssentialsConf;
+import com.github.hexosse.baseplugin.config.BaseConfig;
 import org.bukkit.ChatColor;
 
 import java.io.File;
@@ -28,63 +28,74 @@ import java.io.File;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class Messages
+
+/**
+ * This file is part of ChestPreview
+ *
+ * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
+ */
+
+@BaseConfig.ConfigHeader(comment = {
+		"############################################################",
+		"# | AdminSignShop by hexosse                             | #",
+		"############################################################"
+})
+@BaseConfig.ConfigFooter(comment = {
+		" ",
+		" ",
+		"############################################################"
+})
+
+public class Messages extends BaseConfig<AdminSignShop>
 {
-    private final static Config config = AdminSignShop.getConfiguration();
+	/* Chat */
+	@ConfigComment(path = "chat")
+	@ConfigOptions(path = "chat.prefix")
+	public String chatPrefix;
 
-	private final transient EssentialsConf essConfig;
-	private final File dataFolder;
+	/* Help */
+	@ConfigComment(path = "help")
+	@ConfigOptions(path = "help.helpEnable")
+	public String helpEnable;
+	@ConfigOptions(path = "help.helpDisable")
+	public String helpDisable;
 
-
-    /* Chat */
-	public String prefix;
-
-    /* Errors */
-    public String AccesDenied;
+	/* Errors */
+	@ConfigComment(path = "errors")
+	@ConfigOptions(path = "errors.accesDenied")
+	public String accesDenied;
 
 	/* Messages */
+    /* Messages */
+	@ConfigComment(path = "messages")
+	@ConfigOptions(path = "messages.enable")
 	public String enable;
+	@ConfigOptions(path = "messages.disable")
 	public String disable;
+	@ConfigOptions(path = "messages.not_enabled")
 	public String not_enabled;
+	@ConfigOptions(path = "messages.reloaded")
 	public String reloaded;
+	@ConfigOptions(path = "messages.worth_syntax")
 	public String worth_syntax;
 
 
 	/**
-	 * @param dataFolder Plugin data folder
+	 * @param plugin The plugin that this object belong to.
+	 * @param dataFolder Folder that contains the config file
+	 * @param filename   Name of the config file
 	 */
-	public Messages(File dataFolder)
+	public Messages(AdminSignShop plugin, File dataFolder, String filename)
 	{
-		this.essConfig = new EssentialsConf(new File(dataFolder, config.message));
-		this.essConfig.setTemplateName("/messages.yml");
-		this.dataFolder = dataFolder;
-
-		reloadConfig();
+		super(plugin, new File(dataFolder, filename), filename);
 	}
 
-	/**
-	 *
-	 */
-	public void reloadConfig()
-	{
-		essConfig.load();
-
-		prefix = essConfig.getString("chat.prefix", ChatColor.GREEN + "[AdminSignShop] " + ChatColor.WHITE);
-
-		AccesDenied = essConfig.getString("errors.AccesDenied", "You don't have permission to do that!");
-
-		enable = essConfig.getString("messages.enable", "AdminSignShop is enable");
-		disable = essConfig.getString("messages.disable", "AdminSignShop is disable");
-		not_enabled = essConfig.getString("messages.not_enabled", "AdminSignShop must be enable");
-		reloaded = essConfig.getString("messages.reloaded", "AdminSignShop has been reloaded");
-		worth_syntax = essConfig.getString("messages.worth_syntax", "Use AdminSignShop worth <number>");
+	public void reloadConfig() {
+		load();
 	}
 
-	/**
-	 * @param message Message to format
-	 * @return Fomated message
-	 */
-    public String prefix(String message) {
-        return ChatColor.translateAlternateColorCodes('&', prefix + message);
-    }
+	public String prefix()
+	{
+		return ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE;
+	}
 }

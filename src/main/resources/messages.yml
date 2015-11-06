@@ -1,13 +1,23 @@
+############################################################
+# | AdminSignShop by hexosse                             | #
+############################################################
+
 #----------- Chat Options ------------------
 chat:
   # Prefix used in the chat
-  prefix: '&a[AdminSignShop] &r'
+  prefix: '[AdminSignShop]'
+
+
+#----------- Help messages ------------------
+help:
+  helpEnable: Enable chest preview creation!
+  helpDisable: Disable chest preview creation!
 
 
 #----------- Error messages ------------------
 errors:
   # Prefix used in the chat
-  AccesDenied: You don't have permission to do that!
+  accesDenied: You don't have permission to do that!
 
 
 #----------- Messages ------------------
@@ -17,3 +27,6 @@ messages:
   not_enabled: AdminSignShop must be enable
   reloaded: AdminSignShop has been reloaded
   worth_syntax: Use AdminSignShop worth <number>
+
+
+############################################################

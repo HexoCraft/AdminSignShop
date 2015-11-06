@@ -16,12 +16,14 @@
 
 package com.github.hexosse.adminsignshop.shop;
 
+import com.github.hexosse.adminsignshop.AdminSignShop;
+import com.github.hexosse.baseplugin.BaseObject;
+import org.bukkit.entity.Player;
+
 import java.util.Hashtable;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.bukkit.entity.Player;
 
 
 /**
@@ -29,16 +31,16 @@ import org.bukkit.entity.Player;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class ShopCreators
+public class ShopCreators extends BaseObject<AdminSignShop>
 {
 	private final Lock lock = new ReentrantLock();
     private final Hashtable<UUID, Creator> creatorList;		// Liste des utilisateur en train de créer un AdminShop
 
     
 	// Constructeur
-    public ShopCreators()
+    public ShopCreators(AdminSignShop plugin)
     {
-    	//creatorList = new Vector<Creator>();
+		super(plugin);
     	creatorList = new Hashtable<UUID, Creator>();
     }
     
@@ -48,7 +50,7 @@ public class ShopCreators
     	lock.lock();
     	try
 		{
-    		creatorList.put(player.getUniqueId(),new Creator(player));
+    		creatorList.put(player.getUniqueId(),new Creator(plugin,player));
 		}
     	finally
 		{

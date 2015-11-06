@@ -1,3 +1,5 @@
+package com.github.hexosse.adminsignshop.configuration;
+
 /*
  * Copyright 2015 Hexosse
  *
@@ -14,9 +16,10 @@
  * limitations under the License.
  */
 
-package com.github.hexosse.adminsignshop.configuration;
-
-import org.bukkit.command.CommandSender;
+import com.github.hexosse.adminsignshop.AdminSignShop;
+import com.github.hexosse.baseplugin.permissions.BasePermissions;
+import com.github.hexosse.baseplugin.permissions.PluginPermission;
+import org.bukkit.permissions.PermissionDefault;
 
 
 /**
@@ -24,35 +27,15 @@ import org.bukkit.command.CommandSender;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public enum Permissions
+public class Permissions extends BasePermissions<AdminSignShop>
 {
-    ADMIN("AutoAdminShop.admin");
+    public static final PluginPermission ADMIN      = new PluginPermission("AutoAdminShop.admin", PermissionDefault.OP,	"Gives access to all AdminSignShop permissions");
 
-    
-    private final String permission;
 
-    // Constructeur
-    Permissions(String permission)
-    {
-        this.permission = permission;
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public Permissions(AdminSignShop plugin) {
+        super(plugin, Permissions.class);
     }
-
-    //
-    public static boolean has(CommandSender sender, Permissions permission)
-    {
-        return has(sender, permission.permission);
-    }
-
-    //
-    public static boolean has(CommandSender sender, String node)
-    {
-        return sender.hasPermission(node) || sender.hasPermission(node.toLowerCase());
-    }
-
-    //
-    public String toString()
-    {
-        return permission;
-    }
-
 }

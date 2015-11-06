@@ -17,9 +17,10 @@
 package com.github.hexosse.adminsignshop.grounditem;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.Utils.BlockUtil;
-import com.github.hexosse.adminsignshop.Utils.LocationUtil;
 import com.github.hexosse.adminsignshop.shop.Creator;
+import com.github.hexosse.baseplugin.BaseObject;
+import com.github.hexosse.baseplugin.utils.BlockUtil;
+import com.github.hexosse.baseplugin.utils.LocationUtil;
 import com.gmail.filoghost.holographicdisplays.disk.HologramDatabase;
 import com.gmail.filoghost.holographicdisplays.object.NamedHologram;
 import com.gmail.filoghost.holographicdisplays.object.NamedHologramManager;
@@ -32,20 +33,29 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
+import static com.github.hexosse.adminsignshop.utils.plugins.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugins.ItemStayUtil.getItemStayPlugin;
+
 
 /**
  * This file is part AdminSignShop
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class GroundItem
+public class GroundItem extends BaseObject<AdminSignShop>
 {
-	private final static AdminSignShop plugin = AdminSignShop.getPlugin();
-    private static Plugin holographicDisplays = plugin.getServer().getPluginManager().getPlugin("HolographicDisplays");
-    private static Plugin itemStay = plugin.getServer().getPluginManager().getPlugin("ItemStay");
+    private static Plugin holographicDisplays = getHolographicDisplaysPlugin();
+    private static Plugin itemStay = getItemStayPlugin();
 
-    
-    public static void create(Creator creator, ItemStack displayStack, Location displayLocation)
+	/**
+	 * @param plugin The plugin that this object belong to.
+	 */
+	public GroundItem(AdminSignShop plugin) {
+		super(plugin);
+	}
+
+
+	public static void create(Creator creator, ItemStack displayStack, Location displayLocation)
 	{
 		if(holographicDisplays!=null && creator.holographicDisplays)
 			createHolographicDisplay(creator.getPlayer(),displayStack,displayLocation);

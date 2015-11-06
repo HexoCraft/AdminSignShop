@@ -19,24 +19,17 @@ package com.github.hexosse.adminsignshop;
 import com.github.hexosse.adminsignshop.commands.Commands;
 import com.github.hexosse.adminsignshop.configuration.Config;
 import com.github.hexosse.adminsignshop.configuration.Messages;
+import com.github.hexosse.adminsignshop.configuration.Permissions;
 import com.github.hexosse.adminsignshop.events.BlockListener;
 import com.github.hexosse.adminsignshop.events.PlayerListener;
-import com.github.hexosse.adminsignshop.metrics.MetricsLite;
 import com.github.hexosse.adminsignshop.shop.Shops;
+import com.github.hexosse.baseplugin.BasePlugin;
+import com.github.hexosse.githubupdater.GitHubUpdater;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Server;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 /**
@@ -44,169 +37,75 @@ import java.util.logging.Logger;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class AdminSignShop extends JavaPlugin
+public class AdminSignShop extends BasePlugin
 {
-	private static AdminSignShop plugin;
-    private static Server server;
-    private static PluginDescriptionFile description;
+	public Config config = null;
+	public Messages messages = null;
+	public Permissions permissions = null;
+	public Shops shops = null;
+	private String repository = "hexosse/AdminSignShop";
 
-	private static Config config;
-	private static Messages messages;
-    private static Shops shop;
 
-	
-	
-    // Constructeur
-	public AdminSignShop()
-	{
-		description = getDescription();
-		server = getServer();
-		plugin = this;
-	}
-
-	// Activation du plugin
+	/**
+	 * Activation du plugin
+	 */
 	@Override
 	public void onEnable()
 	{
-		try
-		{
-			/* Configuration du plugin */
-			config = new Config(getDataFolder());
-			config.CheckWorthFile();
-
-			/* Messages du plugin */
-			messages = new Messages(getDataFolder());
-
-			/* Gestionnaire des shops */
-			shop = new Shops();			
-			
-			/* Enregistrement des listeners */
-			Bukkit.getPluginManager().registerEvents(new BlockListener(), this);
-			Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
-			
-			/* Enregistrement du gestionnaire de commandes */
-			this.getCommand("ass").setExecutor(new Commands());
-
-			/* Metrics */
-            if(config.useMetrics)
-            {
-                try
-                {
-                    MetricsLite metrics = new MetricsLite(this);
-                    if(metrics.start())
-                        getLogger().info("Succesfully started Metrics, see http://mcstats.org for more information.");
-                    else
-                        getLogger().info("Could not start Metrics, see http://mcstats.org for more information.");
-                } catch (IOException e)
-                {
-                    // Failed to submit the stats :-(
-                }
-            }
-
-			/* Updater */
-            if(config.useUpdater)
-            {
-            }
+        /* Chargement de la config */
+        try {
+			config = new Config(this, getDataFolder(), "config.yml");			config.load(); 		config.CheckWorthFile();
+			messages = new Messages(this, getDataFolder(), "messages.yml");		messages.load();
+			permissions = new Permissions(this);
+			shops = new Shops(this);
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
         }
-		catch (InvalidConfigurationException ex)
-		{
-			ex.printStackTrace();
-			getLogger().warning("Error while enabling the plugin... Check the stacktrace above.");
-		}
-        catch (Exception ex)
-		{
-			ex.printStackTrace();
-			getLogger().warning("Error while enabling the plugin... Check the stacktrace above.");
-		}
+
+
+		/* Enregistrement des listeners */
+		Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+			
+		/* Enregistrement du gestionnaire de commandes */
+		this.getCommand("ass").setExecutor(new Commands(this));
+		this.getCommand("ass").setTabCompleter(new Commands(this));
+
+        /* Updater */
+		if(config.useUpdater)
+			RunUpdater(config.downloadUpdate);
+
+        /* Metrics */
+		if(config.useMetrics)
+			RunMetrics();
 	}
 
-	// Désactivation du plugin
+	/**
+	 * Désactivation du plugin
+	 */
 	@Override
 	public void onDisable()
 	{
         super.onDisable();
 	}
 
-    
-	
-	
-	// Instance du plugin
-	public static AdminSignShop getPlugin()
+	public void RunUpdater(final boolean download)
 	{
-		return plugin;
+		GitHubUpdater updater = new GitHubUpdater(this, this.repository, this.getFile(), download?GitHubUpdater.UpdateType.DEFAULT:GitHubUpdater.UpdateType.NO_DOWNLOAD, true);
 	}
 
-	// Version du plugin
-    public static String getVersion()
-    {
-        return description.getVersion();
-    }
-
-    // Nom du plugin
-    public static String getPluginName()
-    {
-        return description.getName();
-    }
-
-    // Liste des dépendances du plugin
-    public static List<String> getDependencies()
-    {
-        return description.getSoftDepend();
-    }
-
-    //
-	public static Shops getShops()
+	private void RunMetrics()
 	{
-		return shop;
-	}
-
-	//
-	public static Config getConfiguration()
-	{
-		return config;
-	}
-
-	//
-	public static Messages getMessages()
-	{
-		return messages;
-	}
-
-
-	public void log(String msg) {
-		this.log(Level.INFO, msg, null);
-	}
-
-	public void log(String msg, CommandSender sender) {
-		if(sender instanceof Player)
-			this.log(Level.INFO, msg, (Player)sender);
-		else
-			this.log(Level.INFO, msg, null);
-	}
-
-	public void log(String msg, Player player) {
-		this.log(Level.INFO, msg, player);
-	}
-
-	public void log(Level level, String msg, Player player)
-	{
-		String logPrefixColored = messages.prefix;
-		String logPrefixPlain = ChatColor.stripColor(logPrefixColored);
-
-		if(player != null)
+		try
 		{
-			player.sendMessage(logPrefixColored + msg);
-		}
-		else
+			com.github.hexosse.baseplugin.metric.MetricsLite metrics = new com.github.hexosse.baseplugin.metric.MetricsLite(this);
+			if(metrics.start())
+				pluginLogger.info("Succesfully started Metrics, see http://mcstats.org for more information.");
+			else
+				pluginLogger.info("Could not start Metrics, see http://mcstats.org for more information.");
+		} catch (IOException e)
 		{
-			ConsoleCommandSender sender = Bukkit.getConsoleSender();
-			if (level == Level.INFO && sender != null)
-			{
-				Bukkit.getConsoleSender().sendMessage(logPrefixColored + msg);
-			} else
-			{
-				Logger.getLogger("Minecraft").log(level, logPrefixPlain + msg);
-			}
+			// Failed to submit the stats :-(
 		}
 	}
 }

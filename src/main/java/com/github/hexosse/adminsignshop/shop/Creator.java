@@ -16,10 +16,9 @@
 
 package com.github.hexosse.adminsignshop.shop;
 
-import com.github.hexosse.adminsignshop.configuration.Config;
-import org.bukkit.entity.Player;
-
 import com.github.hexosse.adminsignshop.AdminSignShop;
+import com.github.hexosse.baseplugin.BaseObject;
+import org.bukkit.entity.Player;
 
 
 /**
@@ -27,10 +26,8 @@ import com.github.hexosse.adminsignshop.AdminSignShop;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class Creator
+public class Creator extends BaseObject<AdminSignShop>
 {
-	private final static Config config = AdminSignShop.getConfiguration();
-
 	/* Player */
 	private Player player = null;
 
@@ -38,22 +35,23 @@ public class Creator
 	public boolean enable;
 	
 	/* Shop */
-	public double sellFactor = config.sellFactor;
-	public double enchantmentFactor = config.enchantmentFactor;
-	public boolean buy = config.buy;
-	public boolean sell = config.sell;
-	public double defWorth = config.defWorth;
+	public double sellFactor = plugin.config.sellFactor;
+	public double enchantmentFactor = plugin.config.enchantmentFactor;
+	public boolean buy = plugin.config.buy;
+	public boolean sell = plugin.config.sell;
+	public double defWorth = plugin.config.defWorth;
 
 	/* 3D */
-	public boolean groundItem = config.groundItem;
-	public boolean holographicDisplays = config.holographicDisplays;
-	public boolean itemStay = config.itemStay;
+	public boolean groundItem = plugin.config.groundItem;
+	public boolean holographicDisplays = plugin.config.holographicDisplays;
+	public boolean itemStay = plugin.config.itemStay;
 
 	
 	
 	// Constructeur
-    public Creator(Player creator)
+    public Creator(AdminSignShop plugin, Player creator)
     {
+		super(plugin);
     	player = creator;
 		enable = true;
     }

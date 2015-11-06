@@ -17,55 +17,54 @@
 package com.github.hexosse.adminsignshop.commands;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.configuration.Messages;
-import com.github.hexosse.adminsignshop.configuration.Permissions;
 import com.github.hexosse.adminsignshop.shop.Creator;
-import com.github.hexosse.adminsignshop.shop.Shops;
+import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import static com.github.hexosse.adminsignshop.utils.plugins.HolographicDisplaysUtil.hasHolographicDisplays;
+import static com.github.hexosse.adminsignshop.utils.plugins.ItemStayUtil.hasItemStay;
 
 /**
  * This file is part of AdminSignShop
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandGroundItem
+public class CommandGroundItem extends BaseArgsCommand<AdminSignShop>
 {
-    private final static Messages messages = AdminSignShop.getMessages();
-    private final static Shops shops = AdminSignShop.getShops();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandGroundItem(AdminSignShop plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender sender
      * @param args args
      */
-    public static void execute(CommandSender sender, String[] args)
+    public void execute(CommandSender sender, String[] args)
     {
-        if (!Permissions.has(sender, Permissions.ADMIN))
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+        Creator creator = plugin.shops.creators.get(player);
+
+        if(args.length==2)
         {
-            sender.sendMessage(messages.prefix(messages.AccesDenied));
-            return;
+            if (creator != null) {
+                if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("1"))
+                    creator.groundItem = true;
+                else if (args[1].equalsIgnoreCase("disable") || args[1].equalsIgnoreCase("off") || args[1].equalsIgnoreCase("0"))
+                    creator.groundItem = false;
+
+                if ((args[1].equalsIgnoreCase("holographicDisplays") || args[1].equalsIgnoreCase("hd")) && hasHolographicDisplays()) {
+                    creator.holographicDisplays = true;
+                    creator.itemStay = false;
+                } else if ((args[1].equalsIgnoreCase("itemStay") || args[1].equalsIgnoreCase("is")) && hasItemStay()) {
+                    creator.holographicDisplays = false;
+                    creator.itemStay = true;
+                }
+            } else
+                pluginLogger.help(plugin.messages.prefix() + plugin.messages.not_enabled, player);
         }
-
-        Player player = (Player) sender;
-        Creator creator = shops.creators.get(player);
-
-        if (creator != null)
-        {
-            if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("1"))
-                creator.groundItem = true;
-            else if (args[1].equalsIgnoreCase("disable") || args[1].equalsIgnoreCase("off") || args[1].equalsIgnoreCase("0"))
-                creator.groundItem = false;
-
-            if (args[1].equalsIgnoreCase("holographicDisplays") || args[1].equalsIgnoreCase("hd"))
-            {
-                creator.holographicDisplays = true;
-                creator.itemStay = false;
-            } else if (args[1].equalsIgnoreCase("itemStay") || args[1].equalsIgnoreCase("is"))
-            {
-                creator.holographicDisplays = false;
-                creator.itemStay = true;
-            }
-        } else
-            sender.sendMessage(messages.prefix(messages.not_enabled));
     }
 }

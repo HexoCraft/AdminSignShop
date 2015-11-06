@@ -17,46 +17,45 @@
 package com.github.hexosse.adminsignshop.commands;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.Utils.LocationUtil;
-import com.github.hexosse.adminsignshop.configuration.Config;
-import com.github.hexosse.adminsignshop.configuration.Messages;
-import com.github.hexosse.adminsignshop.configuration.Permissions;
-import com.github.hexosse.adminsignshop.grounditem.GroundItem;
+import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.wargamer2010.signshop.SignShop;
+
+import static com.github.hexosse.adminsignshop.utils.plugins.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugins.ItemStayUtil.getItemStayPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugins.LangUtilsUtil.getLangUtilsPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugins.SignShopUtil.getSignShopPlugin;
 
 /**
  * This file is part of AdminSignShop
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandReload
+public class CommandReload extends BaseArgsCommand<AdminSignShop>
 {
-    private final static AdminSignShop plugin = AdminSignShop.getPlugin();
-    private final static Config config = AdminSignShop.getConfiguration();
-    private final static Messages messages = AdminSignShop.getMessages();
+    private static Plugin signShop = getSignShopPlugin();
+    private static Plugin holographicDisplays = getHolographicDisplaysPlugin();
+    private static Plugin itemStay = getItemStayPlugin();
+    private static Plugin langUtils = getLangUtilsPlugin();
 
-    private static Plugin signShop = plugin.getServer().getPluginManager().getPlugin("SignShop");
-    private static Plugin holographicDisplays = plugin.getServer().getPluginManager().getPlugin("HolographicDisplays");
-    private static Plugin itemStay = plugin.getServer().getPluginManager().getPlugin("ItemStay");
-    private static Plugin langUtils = plugin.getServer().getPluginManager().getPlugin("LangUtils");
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandReload(AdminSignShop plugin) {
+        super(plugin);
+    }
+
+
     /**
      * @param sender sender
      * @param args args
      */
-    public static void execute(final CommandSender sender, String[] args)
+    public void execute(final CommandSender sender, String[] args)
     {
-        if (!Permissions.has(sender, Permissions.ADMIN))
-        {
-            sender.sendMessage(messages.prefix(messages.AccesDenied));
-            return;
-        }
-
         final Player player = (sender instanceof Player) ? (Player)sender : null;
 
         new BukkitRunnable()
@@ -68,8 +67,8 @@ public class CommandReload
                  * Si il faut faire quelque chose lors d'un reload alors mettre le code ici
                  * car le fait de faire un reload de SignShop appel les méthodes onDisable et onEnable de AdminSignShop
                  * */
-                config.reloadConfig();
-                messages.reloadConfig();
+                plugin.config.reloadConfig();
+                plugin.messages.reloadConfig();
 
                 if(signShop!=null)
                     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "SignShop reload");
@@ -88,12 +87,13 @@ public class CommandReload
                 /*Bukkit.getPluginManager().disablePlugin(plugin);
                 Bukkit.getPluginManager().enablePlugin(plugin);*/
 
-                plugin.log(messages.reloaded);
+                pluginLogger.info(plugin.messages.reloaded);
+                pluginLogger.help(plugin.messages.prefix() + ChatColor.RED + plugin.messages.reloaded, player);
 
-                player.sendMessage(messages.prefix(messages.reloaded));
             }
 
         }.runTask(plugin);
 
     }
+
 }

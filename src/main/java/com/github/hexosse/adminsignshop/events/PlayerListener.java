@@ -17,17 +17,15 @@
 package com.github.hexosse.adminsignshop.events;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.Utils.BlockUtil;
-import com.github.hexosse.adminsignshop.Utils.LocationUtil;
-import com.github.hexosse.adminsignshop.shop.Creator;
 import com.github.hexosse.adminsignshop.grounditem.GroundItem;
-import com.github.hexosse.adminsignshop.shop.ShopCreators;
-import com.github.hexosse.adminsignshop.shop.Shops;
-import org.bukkit.Material;
+import com.github.hexosse.adminsignshop.shop.Creator;
+import com.github.hexosse.baseplugin.event.BaseListener;
+import com.github.hexosse.baseplugin.utils.BlockUtil;
+import com.github.hexosse.baseplugin.utils.LocationUtil;
+import com.github.hexosse.baseplugin.utils.SignUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -39,27 +37,34 @@ import org.bukkit.scheduler.BukkitRunnable;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class PlayerListener implements Listener
+public class PlayerListener extends BaseListener<AdminSignShop>
 {
-	private final static AdminSignShop plugin = AdminSignShop.getPlugin();
-	private final static Shops shops = AdminSignShop.getShops();
-	private final static ShopCreators creators = shops.creators;
+	/**
+	 * @param plugin The plugin that this listener belongs to.
+	 */
+	public PlayerListener(AdminSignShop plugin) {
+		super(plugin);
+	}
 
-	
+	/**
+	 * @param event PlayerQuitEvent
+	 */
 	@EventHandler(priority=EventPriority.HIGH)
-    public void onQuitEvent(PlayerQuitEvent e)
+    public void onQuitEvent(PlayerQuitEvent event)
 	{
-		if(creators.exist(e.getPlayer()))
-			creators.remove(e.getPlayer());
+		if(plugin.shops.creators.exist(event.getPlayer()))
+			plugin.shops.creators.remove(event.getPlayer());
     }
 
-	
+
+	/**
+	 * @param event
+	 */
 	@EventHandler(priority=EventPriority.HIGH)
-    public void onPlayerInteract(PlayerInteractEvent  e)
+    public void onPlayerInteract(final PlayerInteractEvent event)
 	{
-		final PlayerInteractEvent event = e;
 		final Player player = event.getPlayer();
-		final Creator creator = shops.creators.get(player);
+		final Creator creator = plugin.shops.creators.get(player);
 		
 		// Test si le joueur est en cours de création de shop
 		if(creator==null || (creator!=null && creator.enable==false)) return;
@@ -69,7 +74,7 @@ public class PlayerListener implements Listener
 		{
 			// L'utilisateur clique sur un sign
 			// --> Création du shop
-			if(BlockUtil.isSign(event.getClickedBlock()) && player.getItemInHand()!=null && player.getItemInHand().getAmount()>0)
+			if(SignUtil.isSign(event.getClickedBlock()) && player.getItemInHand()!=null && player.getItemInHand().getAmount()>0)
 			{
 		        // Create the task anonymously and schedule to run it once, after 20 ticks
 		        new BukkitRunnable()
@@ -77,10 +82,10 @@ public class PlayerListener implements Listener
 		            @Override
 		            public void run()
 		            {
-		            	shops.CreateSignShop(event.getClickedBlock(), player);
+						plugin.shops.CreateSignShop(event.getClickedBlock(), player);
 		            }
 		 
-		        }.runTask(PlayerListener.plugin);
+		        }.runTask(plugin);
 			}
 		 
 			// On test si le block du dessus est de l'air
@@ -98,13 +103,9 @@ public class PlayerListener implements Listener
 			            	GroundItem.create(creator, player.getItemInHand(), LocationUtil.top(event.getClickedBlock().getLocation()));
 			            }
 			 
-			        }.runTask(PlayerListener.plugin);
+			        }.runTask(plugin);
 				}
 			}
 		}
     }
-	
-
-
-
 }
