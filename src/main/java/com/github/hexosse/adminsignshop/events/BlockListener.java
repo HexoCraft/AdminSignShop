@@ -17,12 +17,10 @@
 package com.github.hexosse.adminsignshop.events;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.shop.ShopCreators;
-import com.github.hexosse.adminsignshop.shop.Shops;
-import org.bukkit.Material;
+import com.github.hexosse.adminsignshop.shop.Creator;
+import com.github.hexosse.baseplugin.event.BaseListener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 /**
@@ -30,16 +28,23 @@ import org.bukkit.event.block.BlockBreakEvent;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>)
  */
-public class BlockListener implements Listener
+public class BlockListener extends BaseListener<AdminSignShop>
 {
-    private final static AdminSignShop plugin = AdminSignShop.getPlugin();
-    private final static Shops shops = AdminSignShop.getShops();
-    private final static ShopCreators creators = shops.creators;
+    /**
+     * @param plugin The plugin that this listener belongs to.
+     */
+    public BlockListener(AdminSignShop plugin) {
+        super(plugin);
+    }
 
-    @EventHandler(priority= EventPriority.HIGH)
+    /**
+     * @param event BlockBreakEvent
+     */
+    @EventHandler(priority=EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event)
     {
-        if(creators.exist(event.getPlayer()))
+        Creator creator = plugin.shops.creators.get(event.getPlayer());
+        if(creator!=null && creator.enable)
             event.setCancelled(true);
     }
 }

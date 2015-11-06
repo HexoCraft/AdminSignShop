@@ -17,9 +17,8 @@
 package com.github.hexosse.adminsignshop.commands;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.configuration.Messages;
-import com.github.hexosse.adminsignshop.configuration.Permissions;
-import com.github.hexosse.adminsignshop.shop.Shops;
+import com.github.hexosse.adminsignshop.shop.Creator;
+import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,29 +27,30 @@ import org.bukkit.entity.Player;
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandEnable
+public class CommandEnable extends BaseArgsCommand<AdminSignShop>
 {
-    private final static Messages messages = AdminSignShop.getMessages();
-    private final static Shops shops = AdminSignShop.getShops();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandEnable(AdminSignShop plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender sender
      * @param args args
      */
-    public static void execute(CommandSender sender, String[] args)
+    public void execute(CommandSender sender, String[] args)
     {
-        if (!Permissions.has(sender, Permissions.ADMIN))
-        {
-            sender.sendMessage(messages.prefix(messages.AccesDenied));
-            return;
-        }
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+        Creator creator = plugin.shops.creators.get(player);
 
-        Player player = (Player) sender;
+        if(creator==null)
+            plugin.shops.creators.add(player);
+        else
+            creator.enable = true;
 
-        if(!shops.creators.exist(player))
-            shops.creators.add(player);
-
-        if(shops.creators.exist(player))
-            sender.sendMessage(messages.prefix(messages.enable));
+        if(plugin.shops.creators.exist(player))
+                pluginLogger.help(plugin.messages.prefix() + plugin.messages.enable, player);
     }
 }

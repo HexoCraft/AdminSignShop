@@ -17,10 +17,8 @@
 package com.github.hexosse.adminsignshop.commands;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.configuration.Messages;
-import com.github.hexosse.adminsignshop.configuration.Permissions;
 import com.github.hexosse.adminsignshop.shop.Creator;
-import com.github.hexosse.adminsignshop.shop.Shops;
+import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -29,36 +27,35 @@ import org.bukkit.entity.Player;
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandWorth
+public class CommandWorth extends BaseArgsCommand<AdminSignShop>
 {
-    private final static Messages messages = AdminSignShop.getMessages();
-    private final static Shops shops = AdminSignShop.getShops();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandWorth(AdminSignShop plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender sender
      * @param args args
      */
-    public static void execute(CommandSender sender, String[] args)
+    public void execute(CommandSender sender, String[] args)
     {
-        if (!Permissions.has(sender, Permissions.ADMIN))
-        {
-            sender.sendMessage(messages.prefix(messages.AccesDenied));
-            return;
-        }
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+        Creator creator = plugin.shops.creators.get(player);
 
-        Player player = (Player) sender;
-        Creator creator = shops.creators.get(player);
-
-        if (creator != null)
+        if(creator!=null && creator.enable)
         {
             if(args.length != 2)
             {
-                sender.sendMessage(messages.prefix(messages.worth_syntax));
+                pluginLogger.help(plugin.messages.prefix() + plugin.messages.worth_syntax, player);
                 return;
             }
 
             creator.defWorth = Double.parseDouble(args[1]);
-        } else
-            sender.sendMessage(messages.prefix(messages.not_enabled));
+        }
+        else
+            pluginLogger.help(plugin.messages.prefix() + plugin.messages.not_enabled, player);
     }
 }

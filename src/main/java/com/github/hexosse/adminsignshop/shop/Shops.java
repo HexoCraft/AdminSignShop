@@ -16,8 +16,9 @@
 
 package com.github.hexosse.adminsignshop.shop;
 
-import com.github.hexosse.adminsignshop.Utils.StringUtil;
-import com.github.hexosse.adminsignshop.configuration.Config;
+import com.github.hexosse.adminsignshop.AdminSignShop;
+import com.github.hexosse.baseplugin.BaseObject;
+import com.github.hexosse.baseplugin.utils.StringUtil;
 import com.google.common.collect.Iterables;
 import com.meowj.langutils.lang.LanguageHelper;
 import org.apache.commons.lang.WordUtils;
@@ -33,9 +34,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-
-import com.github.hexosse.adminsignshop.AdminSignShop;
-import org.bukkit.plugin.Plugin;
 import org.wargamer2010.signshop.SignShop;
 import org.wargamer2010.signshop.configuration.SignShopConfig;
 import org.wargamer2010.signshop.configuration.Storage;
@@ -54,28 +52,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.hexosse.adminsignshop.utils.plugins.LangUtilsUtil.getLangUtilsPlugin;
+
 
 /**
  * This file is part AdminSignShop
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class Shops
+public class Shops extends BaseObject<AdminSignShop>
 {
-	private final static AdminSignShop plugin = AdminSignShop.getPlugin();
-	private final static Config config = AdminSignShop.getConfiguration();
-
-    private static Plugin langUtils = plugin.getServer().getPluginManager().getPlugin("LangUtils");
 
 	public ShopCreators creators;
-
 
     /**
      * Constructeur
      */
-    public Shops()
+    public Shops(AdminSignShop plugin)
     {
-    	creators = new ShopCreators();
+        super(plugin);
+        creators = new ShopCreators(plugin);
     }
 
     /**
@@ -197,8 +193,8 @@ public class Shops
         if(totalSellPrice==(int)totalSellPrice) totalSellPrice = (int)totalSellPrice;
 
         // Nom du vendeur : Admin Shop
-        String buySign = "[" + config.buySign + "]";
-        String sellSign = "[" + config.sellSign + "]";
+        String buySign = "[" + plugin.config.buySign + "]";
+        String sellSign = "[" + plugin.config.sellSign + "]";
         String shopType = creator.buy ? buySign : sellSign;
 
         // L'item doit avoir un prix
@@ -210,9 +206,9 @@ public class Shops
         else
         {
             // Formatage des lignes
-            String line1 = config.line1.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
-            String line2 = config.line2.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
-            String line12 = config.line12.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
+            String line1 = plugin.config.line1.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
+            String line2 = plugin.config.line2.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
+            String line12 = plugin.config.line12.replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name).replaceAll("\\s+", " ").trim();
             if(!line12.isEmpty())
             {
                 String[] splitsLine = StringUtil.breakLinesSplit(line12, 16);
@@ -225,7 +221,7 @@ public class Shops
             line[0] = shopType;
             line[1] = line1;
             line[2] = line2;
-            line[3] = config.currencySymbol + " " + (creator.buy ? totalPurchasePrice : totalSellPrice);
+            line[3] = plugin.config.currencySymbol + " " + (creator.buy ? totalPurchasePrice : totalSellPrice);
 
             // Mise à jour des lignes
             line[1] = line[1].replaceAll("%quantity%", itemName.length()>0?"" + quantity:"").replaceAll("%name%", itemName).replaceAll("%book%", bookName).replaceAll("%enchanted_item%", enchanted_item).replaceAll("%enchanted_name%", enchanted_name);
@@ -246,8 +242,8 @@ public class Shops
         if(item.getType()==Material.BOOK || item.getType()==Material.ENCHANTED_BOOK)
         {
             ItemStack book = new ItemStack(Material.BOOK);
-            if(langUtils != null)
-                return LanguageHelper.getItemName(book, config.locale);
+            if(getLangUtilsPlugin() != null)
+                return LanguageHelper.getItemName(book, plugin.config.locale);
             else
                 return StringUtil.capitalizeFirstLetter(book.getType().name().replace("_", " "));
         }
@@ -268,8 +264,8 @@ public class Shops
         }
         else
         {
-            if(langUtils != null)
-                return LanguageHelper.getItemName(item, config.locale);
+            if(getLangUtilsPlugin() != null)
+                return LanguageHelper.getItemName(item, plugin.config.locale);
             else
                 return StringUtil.capitalizeFirstLetter(item.getType().name().replace("_", " "));
         }
@@ -282,8 +278,8 @@ public class Shops
         {
             Enchantment enchantment = Iterables.getFirst(enchantments.keySet(), null);
             int level = Iterables.getFirst(enchantments.values(), 0);
-            if(langUtils != null)
-                return LanguageHelper.getEnchantmentName(enchantment, level, config.locale);
+            if(getLangUtilsPlugin() != null)
+                return LanguageHelper.getEnchantmentName(enchantment, level, plugin.config.locale);
             else
             {
                 String ench = StringUtil.capitalizeFirstLetter(enchantment.getName().replace("_", " "));
@@ -297,11 +293,11 @@ public class Shops
             String name = "";
             for(Map.Entry<Enchantment, Integer> enchantmentLevel : enchantments.entrySet())
             {
-                String tempName = (langUtils != null)
-                        ? LanguageHelper.getEnchantmentName(enchantmentLevel.getKey(), config.locale)
+                String tempName = (getLangUtilsPlugin() != null)
+                        ? LanguageHelper.getEnchantmentName(enchantmentLevel.getKey(), plugin.config.locale)
                         : (enchantmentLevel.getKey().getName());
-                String tempLevel = (langUtils != null)
-                        ? LanguageHelper.getEnchantmentLevelName(enchantmentLevel.getValue(), config.locale)
+                String tempLevel = (getLangUtilsPlugin() != null)
+                        ? LanguageHelper.getEnchantmentLevelName(enchantmentLevel.getValue(), plugin.config.locale)
                         : (enchantmentLevel.getValue() > 0 ? " " + enchantmentLevel.getValue() : "");
 
                 name += WordUtils.initials(tempName) + tempLevel + " ";
@@ -316,7 +312,7 @@ public class Shops
         if(creator.defWorth != 0 )
             return creator.defWorth;
 
-        YamlConfiguration worth = config.getWorth();
+        YamlConfiguration worth = plugin.config.getWorth();
         double worthItem = 0;
         String materialName = is.getType().name().replace("_", "").toLowerCase();
 
@@ -366,7 +362,7 @@ public class Shops
         if(creator.defWorth != 0 )
             return creator.defWorth;
 
-        YamlConfiguration worth = config.getWorth();
+        YamlConfiguration worth = plugin.config.getWorth();
         double worthItem = 0;
 
 

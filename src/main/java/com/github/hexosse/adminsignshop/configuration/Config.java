@@ -1,3 +1,5 @@
+package com.github.hexosse.adminsignshop.configuration;
+
 /*
  * Copyright 2015 Hexosse
  *
@@ -14,102 +16,102 @@
  * limitations under the License.
  */
 
-package com.github.hexosse.adminsignshop.configuration;
-
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.Utils.Essentials.EssentialsConf;
+import com.github.hexosse.baseplugin.config.BaseConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.logging.Level;
+import java.text.MessageFormat;
 
-/**
- * This file is part AdminSignShop
- *
- * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- */
-public class Config
+@BaseConfig.ConfigHeader(comment = {
+        "############################################################",
+        "# | AdminSignShop by hexosse                             | #",
+        "############################################################"
+})
+@BaseConfig.ConfigFooter(comment = {
+        " ",
+        " ",
+        "############################################################"
+})
+
+public class Config extends BaseConfig<AdminSignShop>
 {
-    private final transient EssentialsConf config;
-    private final File dataFolder;
-    private final YamlConfiguration worth;
-
-
     /* Plugin */
+    @ConfigComment(path = "plugin")
+    @ConfigOptions(path = "plugin.useMetrics")
     public boolean useMetrics = (boolean) true;
+    @ConfigOptions(path = "plugin.useUpdater")
     public boolean useUpdater = (boolean) true;
+    @ConfigOptions(path = "plugin.downloadUpdate")
+    public boolean downloadUpdate = (boolean) true;
 
     /* Shop */
+    @ConfigComment(path = "shop")
+    @ConfigOptions(path = "shop.worthFile")
     public String worthFile = "Essentials/worth.yml";
+    @ConfigOptions(path = "shop.sellFactor")
     public double sellFactor = (double) 0.75;
+    @ConfigOptions(path = "shop.enchantmentFactor")
     public double enchantmentFactor = (double) 0.12;
+    @ConfigOptions(path = "shop.buy")
     public boolean buy = (boolean) true;
+    @ConfigOptions(path = "shop.sell")
     public boolean sell = (boolean) false;
+    @ConfigOptions(path = "shop.defWorth")
     public double defWorth = (double) 0;
+
+    @ConfigComment(path = "shop.signs")
+    @ConfigOptions(path = "shop.signs.currencySymbol")
     public String currencySymbol = "$";
+    @ConfigOptions(path = "shop.signs.buySign")
     public String buySign = "iBuy";
+    @ConfigOptions(path = "shop.signs.sellSign")
     public String sellSign = "iSell";
+    @ConfigOptions(path = "shop.signs.line1")
     public String line1 = "";
+    @ConfigOptions(path = "shop.signs.line2")
     public String line2 = "";
+    @ConfigOptions(path = "shop.signs.line12")
     public String line12 = "\"%quantity% %book% %enchanted_item% %name% %enchanted_name%\"";
 
     /* Ground Item */
+    @ConfigComment(path = "groundItem")
+    @ConfigOptions(path = "groundItem.groundItem")
     public boolean groundItem = (boolean) true;
+    @ConfigOptions(path = "groundItem.holographicDisplays")
     public boolean holographicDisplays = (boolean) true;
+    @ConfigOptions(path = "groundItem.itemStay")
     public boolean itemStay = (boolean) false;
 
     /* Message */
+    @ConfigOptions(path = "message")
     public String message = "messages.yml";
 
     /* Localization */
+    @ConfigOptions(path = "locale")
     public String locale = "en_US";
 
 
+    /* Variables locales */
+    private final YamlConfiguration worth = new YamlConfiguration();
+
+
     /**
-     * @param dataFolder Plugin data folder
+     * @param plugin The plugin that this object belong to.
+     * @param dataFolder Folder that contains the config file
+     * @param filename   Name of the config file
      */
-    public Config(File dataFolder)
+    public Config(AdminSignShop plugin, File dataFolder, String filename)
     {
-        this.config = new EssentialsConf(new File(dataFolder, "config.yml"));
-        this.config.setTemplateName("/config.yml");
-        this.dataFolder = dataFolder;
-        this.worth = new YamlConfiguration();
-
-        reloadConfig();
+        super(plugin, new File(dataFolder, filename), filename);
     }
 
-    public void reloadConfig()
-    {
-        config.load();
-
-        useMetrics = config.getBoolean("plugin.useMetrics", true);
-        useUpdater = config.getBoolean("plugin.useUpdater", true);
-
-        worthFile = config.getString("shop.worthFile", "Essentials/worth.yml");
-        sellFactor = config.getDouble("shop.sellFactor", 0.75);
-        buy = config.getBoolean("shop.buy", true);
-        sell = config.getBoolean("shop.sell", false);
-        defWorth = (double) 0;
-        currencySymbol = config.getString("shop.signs.currency-symbol", "$");
-        buySign = config.getString("shop.signs.buy", "iBuy");
-        sellSign = config.getString("shop.signs.sell","iSell");
-        line1 = config.getString("shop.signs.line1","");
-        line2 = config.getString("shop.signs.line2","");
-        line12 = config.getString("shop.signs.line12","%quantity% %book% %enchanted_item% %name% %enchanted_name%");
-
-        groundItem = config.getBoolean("groundItem.groundItem", true);
-        holographicDisplays = config.getBoolean("groundItem.holographicDisplays", true);
-        itemStay = config.getBoolean("groundItem.itemStay", false);
-
-        message = config.getString("message", "messages.yml");
-
-        locale = config.getString("locale", Locale.getDefault().toString());
+    public void reloadConfig() {
+        load();
     }
-
 
     /**
      * Test la validité du fichier worth.yml
@@ -118,14 +120,13 @@ public class Config
      */
     public void CheckWorthFile() throws InvalidConfigurationException
     {
-        String worthFileName = (dataFolder.getParent() + File.separator + worthFile);
+        String worthFileName = (plugin.getDataFolder().getParent() + File.separator + worthFile);
 
 		/* Check worth file */
         File wFile = new File(worthFileName);
-        if(!wFile.exists())
-        {
-            AdminSignShop.getPlugin().getLogger().severe("Worth file not found.");
-            Bukkit.getPluginManager().disablePlugin(AdminSignShop.getPlugin());
+        if(!wFile.exists()) {
+            pluginLogger.fatal("Worth file not found.");
+            Bukkit.getPluginManager().disablePlugin(plugin);
             throw new InvalidConfigurationException("Worth file not found.");
         }
 
@@ -134,16 +135,10 @@ public class Config
         {
             worth.load(worthFileName);
         }
-        catch (InvalidConfigurationException ex)
+        catch (InvalidConfigurationException | IOException ex)
         {
-            AdminSignShop.getPlugin().getLogger().log(Level.SEVERE,"An error occurs reading worth file: {0}", ex.getMessage());
-            Bukkit.getPluginManager().disablePlugin(AdminSignShop.getPlugin());
-            throw new InvalidConfigurationException(ex.getMessage());
-        }
-        catch (IOException ex)
-        {
-            AdminSignShop.getPlugin().getLogger().log(Level.SEVERE,"An error occurs reading worth file: {0}", ex.getMessage());
-            Bukkit.getPluginManager().disablePlugin(AdminSignShop.getPlugin());
+            pluginLogger.fatal(MessageFormat.format("An error occurs reading worth file: {0}", ex.getMessage()));
+            Bukkit.getPluginManager().disablePlugin(plugin);
             throw new InvalidConfigurationException(ex.getMessage());
         }
     }
