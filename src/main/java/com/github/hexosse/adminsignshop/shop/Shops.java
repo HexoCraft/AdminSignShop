@@ -52,7 +52,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.hexosse.adminsignshop.utils.plugins.LangUtilsUtil.getLangUtilsPlugin;
+import static com.github.hexosse.adminsignshop.utils2.LangUtilsUtil.getLangUtilsPlugin;
 
 
 /**

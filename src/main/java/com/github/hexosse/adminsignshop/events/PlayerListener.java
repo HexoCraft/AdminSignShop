@@ -17,12 +17,12 @@
 package com.github.hexosse.adminsignshop.events;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.grounditem.GroundItem;
 import com.github.hexosse.adminsignshop.shop.Creator;
 import com.github.hexosse.baseplugin.event.BaseListener;
-import com.github.hexosse.baseplugin.utils.BlockUtil;
-import com.github.hexosse.baseplugin.utils.LocationUtil;
 import com.github.hexosse.baseplugin.utils.SignUtil;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -56,6 +56,12 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 			plugin.shops.creators.remove(event.getPlayer());
     }
 
+	public boolean isSign(Block block)
+	{
+		// Ne fonctionne pas ??
+		return (block.getType()== Material.SIGN
+				|| block.getType()== Material.WALL_SIGN);
+	}
 
 	/**
 	 * @param event
@@ -72,6 +78,10 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 		//
 		if(event.getAction().equals(Action.LEFT_CLICK_BLOCK))
 		{
+			boolean b1 = isSign(event.getClickedBlock());
+			boolean b2 = SignUtil.isSign(event.getClickedBlock());
+            Sign s = SignUtil.getSign(event.getClickedBlock());
+
 			// L'utilisateur clique sur un sign
 			// --> Création du shop
 			if(SignUtil.isSign(event.getClickedBlock()) && player.getItemInHand()!=null && player.getItemInHand().getAmount()>0)
@@ -90,7 +100,7 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 		 
 			// On test si le block du dessus est de l'air
 			// --> on utilise ItemStay ou holographicDisplay
-			else if(BlockUtil.isAir(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock()))
+			/*else if(BlockUtil.isAir(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock()))
 			{
 				if(creator.groundItem)
 				{
@@ -105,7 +115,7 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 			 
 			        }.runTask(plugin);
 				}
-			}
+			}*/
 		}
     }
 }

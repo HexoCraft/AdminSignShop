@@ -2,7 +2,6 @@
 # | AdminSignShop by hexosse                             | #
 ############################################################
 
-
 # *---------------- Plugin configuration --------------------*
 plugin:
   # Enable metrics
@@ -66,3 +65,5 @@ messages: messages.yml
 # Define your localization when using Language Utils plugin.
 # Each items will be translated in your Language.
 locale: en_US
+
+############################################################

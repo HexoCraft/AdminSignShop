@@ -87,8 +87,8 @@ public class Config extends BaseConfig<AdminSignShop>
     public boolean itemStay = (boolean) false;
 
     /* Message */
-    @ConfigOptions(path = "message")
-    public String message = "messages.yml";
+    @ConfigOptions(path = "messages")
+    public String messages = "messages.yml";
 
     /* Localization */
     @ConfigOptions(path = "locale")

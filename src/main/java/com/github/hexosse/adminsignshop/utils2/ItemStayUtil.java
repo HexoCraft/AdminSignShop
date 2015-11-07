@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.hexosse.adminsignshop.utils.plugins;
+package com.github.hexosse.adminsignshop.utils2;
 
 import me.nighteyes604.ItemStay.ItemStay;
 import org.bukkit.Bukkit;

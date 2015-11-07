@@ -66,7 +66,6 @@ public class Messages extends BaseConfig<AdminSignShop>
 	public String accesDenied;
 
 	/* Messages */
-    /* Messages */
 	@ConfigComment(path = "messages")
 	@ConfigOptions(path = "messages.enable")
 	public String enable;

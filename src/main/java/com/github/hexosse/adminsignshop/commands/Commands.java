@@ -31,9 +31,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.hexosse.adminsignshop.utils.plugins.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
-import static com.github.hexosse.adminsignshop.utils.plugins.HolographicDisplaysUtil.hasHolographicDisplays;
-import static com.github.hexosse.adminsignshop.utils.plugins.ItemStayUtil.hasItemStay;
+import static com.github.hexosse.adminsignshop.utils2.HolographicDisplaysUtil.hasHolographicDisplays;
+import static com.github.hexosse.adminsignshop.utils2.ItemStayUtil.hasItemStay;
 
 public class Commands extends BaseObject<AdminSignShop> implements CommandExecutor, TabCompleter
 {
