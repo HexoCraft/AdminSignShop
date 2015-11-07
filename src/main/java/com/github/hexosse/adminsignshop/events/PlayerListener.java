@@ -17,9 +17,12 @@
 package com.github.hexosse.adminsignshop.events;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
+import com.github.hexosse.adminsignshop.grounditem.GroundItem;
 import com.github.hexosse.adminsignshop.shop.Creator;
 import com.github.hexosse.baseplugin.event.BaseListener;
-import com.github.hexosse.baseplugin.utils.SignUtil;
+import com.github.hexosse.baseplugin.utils.LocationUtil;
+import com.github.hexosse.baseplugin.utils.block.BlockUtil;
+import com.github.hexosse.baseplugin.utils.block.SignUtil;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -78,10 +81,6 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 		//
 		if(event.getAction().equals(Action.LEFT_CLICK_BLOCK))
 		{
-			boolean b1 = isSign(event.getClickedBlock());
-			boolean b2 = SignUtil.isSign(event.getClickedBlock());
-            Sign s = SignUtil.getSign(event.getClickedBlock());
-
 			// L'utilisateur clique sur un sign
 			// --> Création du shop
 			if(SignUtil.isSign(event.getClickedBlock()) && player.getItemInHand()!=null && player.getItemInHand().getAmount()>0)
@@ -100,7 +99,7 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 		 
 			// On test si le block du dessus est de l'air
 			// --> on utilise ItemStay ou holographicDisplay
-			/*else if(BlockUtil.isAir(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock()))
+			else if(BlockUtil.isAir(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock()))
 			{
 				if(creator.groundItem)
 				{
@@ -115,7 +114,7 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 			 
 			        }.runTask(plugin);
 				}
-			}*/
+			}
 		}
     }
 }
