@@ -1,4 +1,4 @@
-package com.github.hexosse.adminsignshop.utils2;
+package com.github.hexosse.adminsignshop.utils.plugin;
 
 /*
  * Copyright 2015 Hexosse

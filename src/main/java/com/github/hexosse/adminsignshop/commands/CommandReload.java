@@ -25,10 +25,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static com.github.hexosse.adminsignshop.utils2.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
-import static com.github.hexosse.adminsignshop.utils2.ItemStayUtil.getItemStayPlugin;
-import static com.github.hexosse.adminsignshop.utils2.LangUtilsUtil.getLangUtilsPlugin;
-import static com.github.hexosse.adminsignshop.utils2.SignShopUtil.getSignShopPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.getItemStayPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.LangUtilsUtil.getLangUtilsPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.SignShopUtil.getSignShopPlugin;
 
 /**
  * This file is part of AdminSignShop

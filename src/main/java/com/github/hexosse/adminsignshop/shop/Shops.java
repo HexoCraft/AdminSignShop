@@ -52,7 +52,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.hexosse.adminsignshop.utils2.LangUtilsUtil.getLangUtilsPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.LangUtilsUtil.getLangUtilsPlugin;
 
 
 /**
@@ -279,7 +279,7 @@ public class Shops extends BaseObject<AdminSignShop>
             Enchantment enchantment = Iterables.getFirst(enchantments.keySet(), null);
             int level = Iterables.getFirst(enchantments.values(), 0);
             if(getLangUtilsPlugin() != null)
-                return LanguageHelper.getEnchantmentName(enchantment, level, plugin.config.locale);
+                return LanguageHelper.getEnchantmentDisplayName(enchantment, level, plugin.config.locale);
             else
             {
                 String ench = StringUtil.capitalizeFirstLetter(enchantment.getName().replace("_", " "));

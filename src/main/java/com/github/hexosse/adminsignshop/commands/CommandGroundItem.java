@@ -22,8 +22,8 @@ import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static com.github.hexosse.adminsignshop.utils2.HolographicDisplaysUtil.hasHolographicDisplays;
-import static com.github.hexosse.adminsignshop.utils2.ItemStayUtil.hasItemStay;
+import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.hasHolographicDisplays;
+import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.hasItemStay;
 
 /**
  * This file is part of AdminSignShop

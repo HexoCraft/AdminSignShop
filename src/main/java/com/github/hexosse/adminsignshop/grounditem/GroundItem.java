@@ -33,8 +33,8 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
-import static com.github.hexosse.adminsignshop.utils2.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
-import static com.github.hexosse.adminsignshop.utils2.ItemStayUtil.getItemStayPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.getItemStayPlugin;
 
 
 /**

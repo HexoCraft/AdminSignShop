@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package com.github.hexosse.adminsignshop.utils2;
+package com.github.hexosse.adminsignshop.utils.plugin;
 
 
 import org.bukkit.Bukkit;
