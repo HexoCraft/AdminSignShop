@@ -46,6 +46,8 @@ shop:
     # %enchanted_name% : name of the enchantment applied to the item which is enchanted
     # line1: "%quantity% %book% %enchanted_item%"
     # line2: "%name% %enchanted_name%"
+    line1: ""
+    line2: ""
     line12: "%quantity% %book% %enchanted_item% %name% %enchanted_name%"
 
 

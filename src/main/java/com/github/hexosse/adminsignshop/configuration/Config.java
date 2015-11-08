@@ -66,9 +66,9 @@ public class Config extends BaseConfig<AdminSignShop>
     @ConfigComment(path = "shop.signs")
     @ConfigOptions(path = "shop.signs.currencySymbol")
     public String currencySymbol = "$";
-    @ConfigOptions(path = "shop.signs.buySign")
+    @ConfigOptions(path = "shop.signs.buy")
     public String buySign = "iBuy";
-    @ConfigOptions(path = "shop.signs.sellSign")
+    @ConfigOptions(path = "shop.signs.sell")
     public String sellSign = "iSell";
     @ConfigOptions(path = "shop.signs.line1")
     public String line1 = "";
