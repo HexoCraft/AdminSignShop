@@ -30,7 +30,7 @@ shop:
   signs:
     # Currency symbol you want to use.
     # Might be the same as in essential if using EssentialsEco
-    currency-symbol: '$'
+    currencySymbol: '$'
     # You can specified the symbol you want to use when creating
     # a buy shop. Look at SignShop configuration.
     # Can be useful when used in another language.
