@@ -48,7 +48,7 @@ public class HolographicDisplaysUtil
     }
 
     /**
-     *
+     * @param plugin The plugin that this object belong to.
      */
     public static void setPlugin(HolographicDisplays plugin)
     {
@@ -56,7 +56,7 @@ public class HolographicDisplaysUtil
     }
 
     /**
-     *
+     * @return The plugin that this object belong to.
      */
     public static HolographicDisplays getPlugin()
     {

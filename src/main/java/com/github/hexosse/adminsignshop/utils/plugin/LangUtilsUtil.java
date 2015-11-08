@@ -49,7 +49,7 @@ public class LangUtilsUtil
     }
 
     /**
-     *
+     * @param plugin The plugin that this object belong to.
      */
     public static void setPlugin(LangUtils plugin)
     {
@@ -57,7 +57,7 @@ public class LangUtilsUtil
     }
 
     /**
-     *
+     * @return The plugin that this object belong to.
      */
     public static LangUtils getPlugin()
     {

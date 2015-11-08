@@ -67,7 +67,7 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 	}
 
 	/**
-	 * @param event
+	 * @param event PlayerInteractEvent
 	 */
 	@EventHandler(priority=EventPriority.HIGH)
     public void onPlayerInteract(final PlayerInteractEvent event)

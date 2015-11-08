@@ -66,13 +66,14 @@ public class Shops extends BaseObject<AdminSignShop>
 	public ShopCreators creators;
 
     /**
-     * Constructeur
+     * @param plugin The plugin that this object belong to.
      */
     public Shops(AdminSignShop plugin)
     {
         super(plugin);
         creators = new ShopCreators(plugin);
     }
+
 
     /**
      * @param signBlock Sign block used for the shop

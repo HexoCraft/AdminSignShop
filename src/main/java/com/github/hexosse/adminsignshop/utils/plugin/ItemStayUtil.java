@@ -48,7 +48,7 @@ public class ItemStayUtil
     }
 
     /**
-     *
+     * @param plugin The plugin that this object belong to.
      */
     public static void setPlugin(ItemStay plugin)
     {
@@ -56,7 +56,7 @@ public class ItemStayUtil
     }
 
     /**
-     *
+     * @return The plugin that this object belong to.
      */
     public static ItemStay getPlugin()
     {

@@ -49,7 +49,7 @@ public class SignShopUtil
     }
 
     /**
-     *
+     * @param plugin The plugin that this object belong to.
      */
     public static void setPlugin(SignShop plugin)
     {
@@ -57,7 +57,7 @@ public class SignShopUtil
     }
 
     /**
-     *
+     * @return The plugin that this object belong to.
      */
     public static SignShop getPlugin()
     {
