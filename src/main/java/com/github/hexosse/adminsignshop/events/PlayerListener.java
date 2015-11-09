@@ -97,9 +97,10 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 		        }.runTask(plugin);
 			}
 		 
-			// On test si le block du dessus est de l'air
+			// On test si le block du dessus est de l'air ou une pancarte
 			// --> on utilise ItemStay ou holographicDisplay
-			else if(BlockUtil.isAir(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock()))
+			else if(BlockUtil.isAir(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock())
+					|| SignUtil.isSign(LocationUtil.top(event.getClickedBlock().getLocation()).getBlock()))
 			{
 				if(creator.groundItem)
 				{

@@ -264,7 +264,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <finalName>${project.name}</finalName>
+                    <finalName>${plugin.name}</finalName>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
