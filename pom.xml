@@ -125,7 +125,7 @@
         <dependency>
             <groupId>com.github.hexosse</groupId>
             <artifactId>GitHubUpdater</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
             <scope>compile</scope>
         </dependency>
         <!--SignShop-->
@@ -343,7 +343,7 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>com.github.hexosse:BsePlugin</include>
+                                <include>com.github.hexosse:BasePlugin</include>
                             </includes>
                         </configuration>
                     </execution>

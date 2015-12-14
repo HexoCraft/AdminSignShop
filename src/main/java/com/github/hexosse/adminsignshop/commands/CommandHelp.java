@@ -56,6 +56,7 @@ public class CommandHelp extends BaseArgsCommand<AdminSignShop>
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[disable|off] :" + ChatColor.WHITE + " Disable AdminSignShop creation", player);
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[buy] :" + ChatColor.WHITE + " Enable user to create a [iBuy] shop", player);
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[sell] :" + ChatColor.WHITE + " Enable user to create a [iSell] shop", player);
+            pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[worth] <worth> :" + ChatColor.WHITE + " Force the worth. Set to 0 to disable", player);
             if (hasHolographicDisplays() || hasItemStay()) {
                 pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[enable|on] :" + ChatColor.WHITE + " Enable use ground item display", player);
                 pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[disable|off] :" + ChatColor.WHITE + " Disable use ground item display", player);

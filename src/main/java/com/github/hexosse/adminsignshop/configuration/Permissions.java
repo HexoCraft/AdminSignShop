@@ -29,7 +29,7 @@ import org.bukkit.permissions.PermissionDefault;
  */
 public class Permissions extends BasePermissions<AdminSignShop>
 {
-    public static final PluginPermission ADMIN      = new PluginPermission("AutoAdminShop.admin", PermissionDefault.OP,	"Gives access to all AdminSignShop permissions");
+    public static final PluginPermission ADMIN      = new PluginPermission("AdminSignShop.admin", PermissionDefault.FALSE,	"Gives access to all AdminSignShop permissions");
 
 
     /**

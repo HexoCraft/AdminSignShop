@@ -13,25 +13,10 @@ commands:
   ass:
     aliases: [adminsignshop, AdminSignShop]
     description: AdminSignShop help Admin server to create SignShop easily.
-    usage: |
-           /AdminSignShop help : AdminSignShop help
-           /AdminSignShop [enable|on] : Enable AdminShop creation
-           /AdminSignShop [disable|off] : Disable AdminSignShop creation
-           /AdminSignShop buy : Enable user to create a [iBuy] shop
-           /AdminSignShop sell : Enable user to create a [iSell] shop
-           /AdminSignShop worth <worth>: Force the worth. Set to 0 to disable
-           /AdminSignShop groundItem [enable|on] : Enable use ground item display
-           /AdminSignShop groundItem [disable|off] : Disable use ground item display
-           /AdminSignShop groundItem holographicDisplays : use holographicDisplay for ground item display
-           /AdminSignShop groundItem itemStay : use itemStay for ground item display
-           /AdminSignShop reload : Reload AdminSignShop
 
 permissions:
+  AdminSignShop.admin: {description: Allows user to modify/destroy other stores and create an Admin Shops, default: false}
   AdminSignShop.*:
-    description: Gives access to all AdminSignShop permissions
     default: op
     children:
         AdminSignShop.admin: true
-AdminSignShop.admin:
-    description: Allows user to modify/destroy other stores and create an Admin Shops
-    default: op
