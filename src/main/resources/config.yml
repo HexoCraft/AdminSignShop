@@ -51,7 +51,7 @@ shop:
     line12: "%quantity% %book% %enchanted_item% %name% %enchanted_name%"
 
 
-# *-------------- GroundItem configuration -----------------*
+# *-------------- GroundItemManager configuration -----------------*
 groundItem:
   # Ground item si enable
   groundItem: false

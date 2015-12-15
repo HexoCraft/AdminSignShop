@@ -43,8 +43,6 @@ public class Creator extends BaseObject<AdminSignShop>
 
 	/* 3D */
 	public boolean groundItem = plugin.config.groundItem;
-	public boolean holographicDisplays = plugin.config.holographicDisplays;
-	public boolean itemStay = plugin.config.itemStay;
 
 	
 	

@@ -22,8 +22,7 @@ import com.github.hexosse.baseplugin.command.BaseArgsCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.hasHolographicDisplays;
-import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.hasItemStay;
+import static com.github.hexosse.adminsignshop.utils.plugin.GroundItemUtil.hasGroundItem;
 
 /**
  * This file is part of AdminSignShop
@@ -50,19 +49,12 @@ public class CommandGroundItem extends BaseArgsCommand<AdminSignShop>
 
         if(args.length==2)
         {
-            if (creator != null) {
+            if (creator != null && hasGroundItem())
+            {
                 if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("1"))
                     creator.groundItem = true;
                 else if (args[1].equalsIgnoreCase("disable") || args[1].equalsIgnoreCase("off") || args[1].equalsIgnoreCase("0"))
                     creator.groundItem = false;
-
-                if ((args[1].equalsIgnoreCase("holographicDisplays") || args[1].equalsIgnoreCase("hd")) && hasHolographicDisplays()) {
-                    creator.holographicDisplays = true;
-                    creator.itemStay = false;
-                } else if ((args[1].equalsIgnoreCase("itemStay") || args[1].equalsIgnoreCase("is")) && hasItemStay()) {
-                    creator.holographicDisplays = false;
-                    creator.itemStay = true;
-                }
             } else
                 pluginLogger.help(plugin.messages.prefix() + plugin.messages.not_enabled, player);
         }

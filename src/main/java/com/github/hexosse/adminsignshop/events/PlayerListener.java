@@ -17,7 +17,7 @@
 package com.github.hexosse.adminsignshop.events;
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.adminsignshop.grounditem.GroundItem;
+import com.github.hexosse.adminsignshop.grounditem.GroundItemManager;
 import com.github.hexosse.adminsignshop.shop.Creator;
 import com.github.hexosse.baseplugin.event.BaseListener;
 import com.github.hexosse.baseplugin.utils.LocationUtil;
@@ -25,7 +25,6 @@ import com.github.hexosse.baseplugin.utils.block.BlockUtil;
 import com.github.hexosse.baseplugin.utils.block.SignUtil;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,6 +32,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 
 /**
@@ -110,7 +110,8 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 			            @Override
 			            public void run()
 			            {
-			            	GroundItem.create(creator, player.getItemInHand(), LocationUtil.top(event.getClickedBlock().getLocation()));
+							Vector dropOffset = new Vector(0.5, 0.95, 0.5);
+			            	GroundItemManager.create(plugin, creator, player.getItemInHand(), LocationUtil.top(event.getClickedBlock().getLocation()).add(dropOffset));
 			            }
 			 
 			        }.runTask(plugin);

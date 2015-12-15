@@ -16,6 +16,8 @@
 
 package com.github.hexosse.adminsignshop.utils.plugin;
 
+import com.github.hexosse.grounditemapi.GroundItemApi;
+import com.github.hexosse.grounditemapi.GroundItemPlugin;
 import me.nighteyes604.ItemStay.ItemStay;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -25,24 +27,24 @@ import org.bukkit.plugin.PluginManager;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class ItemStayUtil
+public class GroundItemUtil
 {
-    private static ItemStay itemStay = null;
+    private static GroundItemPlugin groundItem = null;
 
     /**
-     * @return HolographicDisplays plugin instance
+     * @return GroundItem plugin instance
      */
-    public static ItemStay getItemStayPlugin()
+    public static GroundItemPlugin getGroundItem()
     {
-        if(ItemStayUtil.getPlugin()!=null)
-            return ItemStayUtil.getPlugin();
+        if(GroundItemUtil.getPlugin()!=null)
+            return GroundItemUtil.getPlugin();
 
         PluginManager pm = Bukkit.getServer().getPluginManager();
-        ItemStay itemStay = (ItemStay)pm.getPlugin("ItemStay");
-        if(itemStay != null && pm.isPluginEnabled(itemStay))
+        GroundItemPlugin groundItem = (GroundItemPlugin)pm.getPlugin("GroundItemApi");
+        if(groundItem != null && pm.isPluginEnabled(groundItem))
         {
-            ItemStayUtil.setPlugin(itemStay);
-            return itemStay;
+            GroundItemUtil.setPlugin(groundItem);
+            return groundItem;
         }
         else return null;
     }
@@ -50,17 +52,17 @@ public class ItemStayUtil
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public static void setPlugin(ItemStay plugin)
+    public static void setPlugin(GroundItemPlugin plugin)
     {
-        itemStay = plugin;
+        groundItem = plugin;
     }
 
     /**
      * @return The plugin that this object belong to.
      */
-    public static ItemStay getPlugin()
+    public static GroundItemPlugin getPlugin()
     {
-        return itemStay;
+        return groundItem;
     }
 
     /**
@@ -68,8 +70,8 @@ public class ItemStayUtil
      *
      * @return true if ItemStay is installed
      */
-    public static boolean hasItemStay()
+    public static boolean hasGroundItem()
     {
-        return ItemStayUtil.getItemStayPlugin()!=null;
+        return GroundItemUtil.getGroundItem()!=null;
     }
 }

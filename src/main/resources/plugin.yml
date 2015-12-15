@@ -7,7 +7,7 @@ author: hexosse
 website: www.github.hexosse
 
 depend: [SignShop]
-softdepend: [HolographicDisplays, ItemStay, LangUtils]
+softdepend: [GroundItemApi, LangUtils]
 
 commands:
   ass:

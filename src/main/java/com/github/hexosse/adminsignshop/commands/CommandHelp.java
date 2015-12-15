@@ -23,8 +23,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.hasHolographicDisplays;
-import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.hasItemStay;
+import static com.github.hexosse.adminsignshop.utils.plugin.GroundItemUtil.hasGroundItem;
+
 
 /**
  * This file is part of AdminSignShop
@@ -57,14 +57,10 @@ public class CommandHelp extends BaseArgsCommand<AdminSignShop>
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[buy] :" + ChatColor.WHITE + " Enable user to create a [iBuy] shop", player);
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[sell] :" + ChatColor.WHITE + " Enable user to create a [iSell] shop", player);
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[worth] <worth> :" + ChatColor.WHITE + " Force the worth. Set to 0 to disable", player);
-            if (hasHolographicDisplays() || hasItemStay()) {
-                pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[enable|on] :" + ChatColor.WHITE + " Enable use ground item display", player);
-                pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[disable|off] :" + ChatColor.WHITE + " Disable use ground item display", player);
+            if (hasGroundItem()) {
+                pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[enable|on] :" + ChatColor.WHITE + " Enable use ground item", player);
+                pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[disable|off] :" + ChatColor.WHITE + " Disable use ground item", player);
             }
-            if (hasHolographicDisplays())
-                pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[holographicDisplays] :" + ChatColor.WHITE + " use holographicDisplay for ground item display", player);
-            if (hasItemStay())
-                pluginLogger.help(ChatColor.AQUA + "/ass groundItem " + ChatColor.GREEN + "[itemStay] :" + ChatColor.WHITE + " use itemStay for ground item display", player);
             pluginLogger.help(ChatColor.AQUA + "/ass " + ChatColor.GREEN + "[reload] :" + ChatColor.WHITE + " Reload AdminSignShop", player);
             pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
         }
@@ -76,24 +72,16 @@ public class CommandHelp extends BaseArgsCommand<AdminSignShop>
                 pluginLogger.help(ChatColor.YELLOW + "plugin : " + (creator.enable ? ChatColor.GREEN : ChatColor.RED) + (creator.enable ? "enable" : "disable"), player);
                 pluginLogger.help(ChatColor.YELLOW + "buy : " + (creator.buy ? ChatColor.GREEN : ChatColor.RED) + (creator.buy ? "enable" : "disable"), player);
                 pluginLogger.help(ChatColor.YELLOW + "sell : " + (creator.sell ? ChatColor.GREEN : ChatColor.RED) + (creator.sell ? "enable" : "disable"), player);
-                if (hasHolographicDisplays() || hasItemStay())
+                if (hasGroundItem())
                     pluginLogger.help(ChatColor.YELLOW + "groundItem : " + (creator.groundItem ? ChatColor.GREEN : ChatColor.RED) + (creator.groundItem ? "enable" : "disable"), player);
-                if (hasHolographicDisplays())
-                    pluginLogger.help(ChatColor.YELLOW + "holographicDisplays : " + (creator.holographicDisplays ? ChatColor.GREEN : ChatColor.RED) + (creator.holographicDisplays ? "active" : "inactive"), player);
-                if (hasItemStay())
-                    pluginLogger.help(ChatColor.YELLOW + "itemStay : " + (creator.itemStay ? ChatColor.GREEN : ChatColor.RED) + (creator.itemStay ? "active" : "inactive"), player);
             }
             else
             {
                 pluginLogger.help(ChatColor.YELLOW + "plugin : " + ChatColor.RED + "off", player);
                 pluginLogger.help(ChatColor.YELLOW + "buy : " + (plugin.config.buy ? ChatColor.GREEN : ChatColor.RED) + (plugin.config.buy ? "enable" : "disable"), player);
                 pluginLogger.help(ChatColor.YELLOW + "sell : " + (plugin.config.sell ? ChatColor.GREEN : ChatColor.RED) + (plugin.config.sell ? "enable" : "disable"), player);
-                if (hasHolographicDisplays() || hasItemStay())
+                if (hasGroundItem())
                     pluginLogger.help(ChatColor.YELLOW + "groundItem : " + (plugin.config.groundItem ? ChatColor.GREEN : ChatColor.RED) + (plugin.config.groundItem ? "enable" : "disable"), player);
-                if (hasHolographicDisplays())
-                    pluginLogger.help(ChatColor.YELLOW + "holographicDisplays : " + (plugin.config.holographicDisplays ? ChatColor.GREEN : ChatColor.RED) + (plugin.config.holographicDisplays ? "active" : "inactive"), player);
-                if (hasItemStay())
-                    pluginLogger.help(ChatColor.YELLOW + "itemStay : " + (plugin.config.itemStay ? ChatColor.GREEN : ChatColor.RED) + (plugin.config.itemStay ? "active" : "inactive"), player);
             }
             pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
         }

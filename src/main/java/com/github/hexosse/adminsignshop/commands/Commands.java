@@ -31,8 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.hasHolographicDisplays;
-import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.hasItemStay;
+import static com.github.hexosse.adminsignshop.utils.plugin.GroundItemUtil.hasGroundItem;
 
 public class Commands extends BaseObject<AdminSignShop> implements CommandExecutor, TabCompleter
 {
@@ -98,7 +97,7 @@ public class Commands extends BaseObject<AdminSignShop> implements CommandExecut
 			else if(args[0].equalsIgnoreCase("worth"))
 				cmdWorth.execute(sender,args);
 
-			else if( (args[0].equalsIgnoreCase("groundItem") || args[0].equalsIgnoreCase("gi")) && (hasHolographicDisplays() || hasItemStay()))
+			else if( (args[0].equalsIgnoreCase("groundItem") || args[0].equalsIgnoreCase("gi")) && (hasGroundItem()))
 				cmdGrountItem.execute(sender,args);
 
 			else if(args[0].equalsIgnoreCase("reload"))
@@ -125,15 +124,11 @@ public class Commands extends BaseObject<AdminSignShop> implements CommandExecut
         List<String> fList = Lists.newArrayList();
 
         List<String> list = new ArrayList<String>(Arrays.asList("help", "enable", "disable", "buy", "sell", "worth", "reload"));
-        if(hasHolographicDisplays() || hasItemStay())
+        if(hasGroundItem())
             list.add("groundItem");
         java.util.Collections.sort(list);
 
         List<String> groundItemList = new ArrayList<String>(Arrays.asList("enable", "disable"));
-        if(hasHolographicDisplays())
-            groundItemList.add("holographicDisplays");
-        if(hasItemStay())
-            groundItemList.add("itemStay");
         java.util.Collections.sort(groundItemList);
 
 		// Commandes de base

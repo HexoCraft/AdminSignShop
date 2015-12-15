@@ -25,8 +25,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static com.github.hexosse.adminsignshop.utils.plugin.HolographicDisplaysUtil.getHolographicDisplaysPlugin;
-import static com.github.hexosse.adminsignshop.utils.plugin.ItemStayUtil.getItemStayPlugin;
+import static com.github.hexosse.adminsignshop.utils.plugin.GroundItemUtil.getGroundItem;
 import static com.github.hexosse.adminsignshop.utils.plugin.LangUtilsUtil.getLangUtilsPlugin;
 import static com.github.hexosse.adminsignshop.utils.plugin.SignShopUtil.getSignShopPlugin;
 
@@ -38,8 +37,7 @@ import static com.github.hexosse.adminsignshop.utils.plugin.SignShopUtil.getSign
 public class CommandReload extends BaseArgsCommand<AdminSignShop>
 {
     private static Plugin signShop = getSignShopPlugin();
-    private static Plugin holographicDisplays = getHolographicDisplaysPlugin();
-    private static Plugin itemStay = getItemStayPlugin();
+    private static Plugin groundItem = getGroundItem();
     private static Plugin langUtils = getLangUtilsPlugin();
 
     /**
@@ -73,19 +71,15 @@ public class CommandReload extends BaseArgsCommand<AdminSignShop>
                 if(signShop!=null)
                     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "SignShop reload");
 
-                if(holographicDisplays!=null)
-                    Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "hd reload");
-
-                if(itemStay!=null)
-                    Bukkit.getServer().dispatchCommand(player, "ItemStay reload");
+                if(groundItem!=null){
+                    Bukkit.getPluginManager().disablePlugin(groundItem);
+                    Bukkit.getPluginManager().enablePlugin(groundItem);
+                }
 
                 if(langUtils!=null) {
                     Bukkit.getPluginManager().disablePlugin(langUtils);
                     Bukkit.getPluginManager().enablePlugin(langUtils);
                 }
-
-                /*Bukkit.getPluginManager().disablePlugin(plugin);
-                Bukkit.getPluginManager().enablePlugin(plugin);*/
 
                 pluginLogger.info(plugin.messages.reloaded);
                 pluginLogger.help(plugin.messages.prefix() + ChatColor.RED + plugin.messages.reloaded, player);
