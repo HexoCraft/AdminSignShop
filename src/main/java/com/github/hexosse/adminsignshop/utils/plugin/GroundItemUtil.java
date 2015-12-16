@@ -16,7 +16,7 @@
 
 package com.github.hexosse.adminsignshop.utils.plugin;
 
-import com.github.hexosse.grounditemapi.GroundItemPlugin;
+import com.github.hexosse.grounditem.GroundItemPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -38,7 +38,7 @@ public class GroundItemUtil
             return GroundItemUtil.getPlugin();
 
         PluginManager pm = Bukkit.getServer().getPluginManager();
-        GroundItemPlugin groundItem = (GroundItemPlugin)pm.getPlugin("GroundItemApi");
+        GroundItemPlugin groundItem = (GroundItemPlugin)pm.getPlugin("GroundItem");
         if(groundItem != null && pm.isPluginEnabled(groundItem))
         {
             GroundItemUtil.setPlugin(groundItem);
