@@ -27,7 +27,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.hexosse.adminsignshop.utils.plugin.GroundItemUtil.getGroundItem;
@@ -58,12 +57,7 @@ public class GroundItemManager extends BaseObject<AdminSignShop>
 
 	private static void createGroundItem(AdminSignShop plugin, Player player, ItemStack displayStack, Location displayLocation)
 	{
-		// Dans le cas d'un block il faut le supprimer
-		// pour pouvoir afficher l'entitée
-		LocationUtil.RemoveBlock(displayLocation);
-
-		// Test si il n'y a pas le même item à proximité 
-		// pour éviter qu'ils ne se regroupent
+		// Test si il n'y a pas le même item à proximité
 		boolean add = true;
 		GroundItem toRemove = null;
 

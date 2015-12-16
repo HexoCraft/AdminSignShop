@@ -16,9 +16,7 @@
 
 package com.github.hexosse.adminsignshop.utils.plugin;
 
-import com.github.hexosse.grounditemapi.GroundItemApi;
 import com.github.hexosse.grounditemapi.GroundItemPlugin;
-import me.nighteyes604.ItemStay.ItemStay;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 

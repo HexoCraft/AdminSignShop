@@ -110,7 +110,7 @@ public class PlayerListener extends BaseListener<AdminSignShop>
 			            @Override
 			            public void run()
 			            {
-							Vector dropOffset = new Vector(0.5, 0.95, 0.5);
+							Vector dropOffset = new Vector(0.5, 0.9, 0.5);
 			            	GroundItemManager.create(plugin, creator, player.getItemInHand(), LocationUtil.top(event.getClickedBlock().getLocation()).add(dropOffset));
 			            }
 			 
