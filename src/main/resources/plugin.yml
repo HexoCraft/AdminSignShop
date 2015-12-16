@@ -7,7 +7,7 @@ author: hexosse
 website: www.github.hexosse
 
 depend: [SignShop]
-softdepend: [GroundItemApi, LangUtils]
+softdepend: [GroundItem, LangUtils]
 
 commands:
   ass:

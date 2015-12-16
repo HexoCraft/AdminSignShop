@@ -16,7 +16,7 @@
 
 package com.github.hexosse.adminsignshop.utils.plugin;
 
-import com.github.hexosse.grounditemapi.GroundItemPlugin;
+import com.github.hexosse.grounditem.GroundItemPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
