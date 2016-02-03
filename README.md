@@ -1,1 +1,1 @@
-# AdminSignShop
+# AdminSignShop [![Build Status](https://drone.io/github.com/hexosse/AdminSignShop/status.png)](https://drone.io/github.com/hexosse/AdminSignShop/latest) [![Dependency Status](https://www.versioneye.com/user/projects/56b1f3621c89e100411825d4/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b1f3621c89e100411825d4)
