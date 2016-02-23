@@ -9,11 +9,6 @@ website: www.github.hexosse
 depend: [SignShop]
 softdepend: [GroundItem, LangUtils]
 
-commands:
-  ass:
-    aliases: [adminsignshop, AdminSignShop]
-    description: AdminSignShop help Admin server to create SignShop easily.
-
 permissions:
   AdminSignShop.admin: {description: Allows user to modify/destroy other stores and create an Admin Shops, default: false}
   AdminSignShop.*:

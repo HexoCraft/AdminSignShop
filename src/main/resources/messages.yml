@@ -5,13 +5,17 @@
 #----------- Chat Options ------------------
 chat:
   # Prefix used in the chat
-  prefix: '[AdminSignShop]'
+  prefix: '&3[&bAdminSignShop&3]&r'
 
 
 #----------- Help messages ------------------
 help:
-  helpEnable: Enable chest preview creation!
-  helpDisable: Disable chest preview creation!
+  helpEnable: Enable AdminSignShop creation!
+  helpDisable: Disable AdminSignShop creation!
+  helpBuy: The next shop will be a buy shop
+  helpSell: The next shop will be a sell shop
+  helpGroundItemEnable: Enable ground item creation!
+  helpGroundItemDisable: Disable ground item creation!
 
 
 #----------- Error messages ------------------
@@ -24,6 +28,8 @@ errors:
 messages:
   enable: AdminSignShop is enable
   disable: AdminSignShop is disable
+  groundItemEnable:  GroundItem is enable
+  groundItemDisable:  GroundItem is disable
   not_enabled: AdminSignShop must be enable
   reloaded: AdminSignShop has been reloaded
   worth_syntax: Use AdminSignShop worth <number>

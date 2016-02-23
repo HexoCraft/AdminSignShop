@@ -55,10 +55,6 @@ shop:
 groundItem:
   # Ground item si enable
   groundItem: false
-  # ground item are displayed using HolographicDisplays
-  holographicDisplays: false
-  # ground item are displayed using itemStay
-  itemStay: false
 
 
 # *-------------- Messages configuration -----------------*

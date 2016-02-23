@@ -1,27 +1,27 @@
-/*
- * Copyright 2015 Hexosse
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.github.hexosse.adminsignshop.grounditem;
+
+/*
+ * Copyright 2016 hexosse
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
 import com.github.hexosse.adminsignshop.shop.Creator;
-import com.github.hexosse.baseplugin.BaseObject;
-import com.github.hexosse.baseplugin.utils.LocationUtil;
 import com.github.hexosse.grounditem.GroundItemApi;
 import com.github.hexosse.grounditem.grounditem.GroundItem;
+import com.github.hexosse.pluginframework.pluginapi.PluginObject;
+import com.github.hexosse.pluginframework.utilapi.LocationUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -37,7 +37,7 @@ import static com.github.hexosse.adminsignshop.utils.plugin.GroundItemUtil.getGr
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class GroundItemManager extends BaseObject<AdminSignShop>
+public class GroundItemManager extends PluginObject<AdminSignShop>
 {
     private static Plugin groundItem = getGroundItem();
 
@@ -61,7 +61,7 @@ public class GroundItemManager extends BaseObject<AdminSignShop>
 		boolean add = true;
 		GroundItem toRemove = null;
 
-		// récupère la liste des items du plugin itemstay
+		// récupère la liste des items du plugin GroundItem
 		List<GroundItem> groundItems = GroundItemApi.getGroundItemList();
 		
 		// Parcours toutes les entitées 
@@ -70,7 +70,7 @@ public class GroundItemManager extends BaseObject<AdminSignShop>
 			GroundItem groundItem = groundItems.get(x);
             
             if(LocationUtil.equals(displayLocation,groundItem.getLocation())
-                    && groundItem.getItemStack().getType()==displayStack.getType())
+                    && groundItem.getCustomItemStack().getType()==displayStack.getType())
             {
 				toRemove = groundItem;
                 if(LocationUtil.equals(groundItem.getLocation(), displayLocation))
