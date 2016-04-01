@@ -17,7 +17,7 @@ package com.github.hexosse.adminsignshop.configuration;
  */
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.pluginframework.pluginapi.config.PluginConfig;
+import com.github.hexosse.pluginframework.pluginapi.config.ConfigFile;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -26,18 +26,18 @@ import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-@PluginConfig.ConfigHeader(comment = {
+@ConfigFile.ConfigHeader(comment = {
         "############################################################",
         "# | AdminSignShop by hexosse                             | #",
         "############################################################"
 })
-@PluginConfig.ConfigFooter(comment = {
+@ConfigFile.ConfigFooter(comment = {
         " ",
         " ",
         "############################################################"
 })
 
-public class Config extends PluginConfig<AdminSignShop>
+public class Config extends ConfigFile<AdminSignShop>
 {
     /* Plugin */
     @ConfigComment(path = "plugin")

@@ -17,7 +17,7 @@ package com.github.hexosse.adminsignshop.configuration;
  */
 
 import com.github.hexosse.adminsignshop.AdminSignShop;
-import com.github.hexosse.pluginframework.pluginapi.config.PluginConfig;
+import com.github.hexosse.pluginframework.pluginapi.config.ConfigFile;
 import org.bukkit.ChatColor;
 
 import java.io.File;
@@ -35,18 +35,18 @@ import java.io.File;
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
 
-@PluginConfig.ConfigHeader(comment = {
+@ConfigFile.ConfigHeader(comment = {
 		"############################################################",
 		"# | AdminSignShop by hexosse                             | #",
 		"############################################################"
 })
-@PluginConfig.ConfigFooter(comment = {
+@ConfigFile.ConfigFooter(comment = {
 		" ",
 		" ",
 		"############################################################"
 })
 
-public class Messages extends PluginConfig<AdminSignShop>
+public class Messages extends ConfigFile<AdminSignShop>
 {
 	/* Chat */
 	@ConfigComment(path = "chat")
