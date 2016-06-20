@@ -56,7 +56,7 @@
         <plugin.name>${project.name}</plugin.name>
         <plugin.version>${project.version}</plugin.version>
         <jdk.version>1.7</jdk.version>
-        <spigot.version>1.9-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.9.4-R0.1-SNAPSHOT</spigot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <github.global.server>github</github.global.server>
     </properties>
@@ -140,7 +140,7 @@
         <dependency>
             <groupId>com.github.hexosse</groupId>
             <artifactId>GroundItem</artifactId>
-            <version>1.3.0</version>
+            <version>1.3.1</version>
             <scope>provided</scope>
         </dependency>
         <!--SignShop-->
@@ -154,7 +154,7 @@
         <dependency>
             <groupId>com.meowj</groupId>
             <artifactId>LangUtils</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -267,7 +267,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.0.1</version>
                 <configuration>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
